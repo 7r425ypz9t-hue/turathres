@@ -1,0 +1,542 @@
+[
+  {
+    "id": "CLM-0001",
+    "text_ar": "أُدرج عنصر «التلي» على القائمة التمثيلية للتراث الثقافي غير المادي للبشرية سنة 2022، في الدورة السابعة عشرة للجنة الحكومية الدولية (17.COM) المنعقدة في الرباط بين 28 نوفمبر و3 ديسمبر 2022، بموجب القرار 17.COM 7.B.32، ورقم الملف 01712.",
+    "status": "established",
+    "evidence": [
+      {
+        "source": "SRC-0002",
+        "excerpt": "Decides to inscribe Al Talli, traditional embroidery skills in the United Arab Emirates on the Representative List ... (No. 01712)",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0001",
+        "excerpt": "Inscribed in 2022 (17.COM) on the Representative List of the Intangible Cultural Heritage of Humanity",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0004",
+        "excerpt": "7.b.32 ... File reference: 1712 ... Note: inscribed",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0012",
+        "excerpt": "hosted by the Kingdom of Morocco in Rabat ... from 28 November to 3 December 2022",
+        "relation": "context"
+      },
+      {
+        "source": "SRC-0003",
+        "excerpt": "Nomination file no. 01712 for inscription in 2022 on the Representative List",
+        "relation": "supports"
+      }
+    ],
+    "note": "اليوم المحدد لاتخاذ القرار داخل الدورة غير مثبت في المصادر المفتوحة؛ يُكتفى بمدة الدورة."
+  },
+  {
+    "id": "CLM-0002",
+    "text_ar": "لم يُدرج «التلي» على قائمة التراث الثقافي غير المادي الذي يحتاج إلى صون عاجل، خلافاً للافتراض الأولي في تكليف هذه الدراسة؛ فقد قُدِّم ونُظر فيه وأُدرج على القائمة التمثيلية.",
+    "status": "established",
+    "evidence": [
+      {
+        "source": "SRC-0002",
+        "excerpt": "has nominated ... for inscription on the Representative List of the Intangible Cultural Heritage of Humanity",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0001",
+        "excerpt": "on the Representative List of the Intangible Cultural Heritage of Humanity",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0004",
+        "excerpt": "Representative List ... Note: inscribed",
+        "relation": "supports"
+      }
+    ],
+    "note": "انظر CNF-0001. قد يكون مصدر الالتباس وصف بعض المسؤولين للحرفة بأنها «معرّضة للاندثار» (SRC-0007)، وهو وصف للحال لا لوضع الإدراج."
+  },
+  {
+    "id": "CLM-0003",
+    "text_ar": "العنوان الرسمي للعنصر بالإنجليزية: «Al Talli, traditional embroidery skills in the United Arab Emirates»، وبالعربية في ملف الترشيح: «التلي: مهارات التطريز التقليدية في دولة الإمارات العربية المتحدة»، وبالفرنسية: «Al talli, savoir-faire traditionnels de la broderie aux Émirats arabes unis».",
+    "status": "established",
+    "evidence": [
+      {
+        "source": "SRC-0003",
+        "excerpt": "B.1 ... Al Talli, traditional embroidery skills in the United Arab Emirates; B.2 ... التلي: مهارات التطريز التقليدية في دولة الإمارات العربية المتحدة",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0004",
+        "excerpt": "EN: Al Talli, traditional embroidery skills in the United Arab Emirates FR: Al talli, savoir-faire traditionnels de la broderie aux Émirats arabes unis",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0002",
+        "excerpt": "Al Talli, traditional embroidery skills in the United Arab Emirates (No. 01712)",
+        "relation": "supports"
+      }
+    ],
+    "note": ""
+  },
+  {
+    "id": "CLM-0004",
+    "text_ar": "التلي حرفة يدوية تقليدية تمارسها النساء أساساً في مناطق مختلفة من الإمارات، وتقوم على جدل خيوط ملوّنة مع خيط معدني في شريط مزخرف يُخاط على أكمام الأثواب النسائية وأجزاء أخرى منها.",
+    "status": "probable",
+    "evidence": [
+      {
+        "source": "SRC-0003",
+        "excerpt": "1(i): a traditional handicraft practiced primarily by women ... embroidering women’s clothes using brightly coloured threads neatly knitted into the sleeves and other parts of female robes",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0005",
+        "excerpt": "حرفة نسائية منتشرة في الإمارات بشكل كبير؛ وهي عبارة عن شريط مزركش بخيوط ملونة",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0010",
+        "excerpt": "حرفة يدوية إماراتية تقليدية تعتمد على لف ونسج عدد من الخيوط المختلفة وتضفيرها",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0006",
+        "excerpt": "التلي هو نسيج تشتغله المرأة الإماراتية لتزين به أكمام أثوابها",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0009",
+        "excerpt": "weaving a braid and applying it to fabric using a couching stitch",
+        "relation": "supports"
+      }
+    ],
+    "note": "مصادر متعددة متقاربة، لكن أعلى مستوى لها 4 ولا دليل ميداني من المستوى 2؛ وفق قاعدة التثليث في المنصة يبقى «مرجّحاً» حتى الملاحظة الميدانية. يلاحظ أن المصادر تتراوح بين «تطريز» و«نسج/جدل»، والأدق تقنياً أن الشريط يُجدل ثم يُثبّت بالخياطة (SRC-0009)."
+  },
+  {
+    "id": "CLM-0005",
+    "text_ar": "يُعرف التلي بأسماء أخرى منها «السين» (Alseen / Sein بحسب الرسم اللاتيني) و«تلي بوادل» و«تلي بتول».",
+    "status": "probable",
+    "evidence": [
+      {
+        "source": "SRC-0003",
+        "excerpt": "B.3: Al Talli is also named Talli Bawadil, Talli Batool and Sein",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0001",
+        "excerpt": "Also known as Alseen",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0011",
+        "excerpt": "وتسمى هذه الحرفة بـ\"تلي بوادل\" أو \"تلي بتول\"",
+        "relation": "supports"
+      }
+    ],
+    "note": "الرسم العربي لـ Alseen/Sein غير وارد في أي مصدر مفتوح؛ كتابته «السين» اجتهاد صوتي من الباحث يحتاج تحققاً ميدانياً (CNF-0002). وتعدّ مصادر أخرى «البتول» و«البادلة» نوعين أو مقاسين لا اسمين للحرفة كلها (SRC-0006)."
+  },
+  {
+    "id": "CLM-0006",
+    "text_ar": "يتكون شريط التلي في صورته المعتادة من ستة خيوط قطنية، ثلاثة في كل جانب، يتوسطها خيط فضي (الخوص).",
+    "status": "probable",
+    "evidence": [
+      {
+        "source": "SRC-0003",
+        "excerpt": "1(i): a combination of six cotton threads, three on each side, separated by a silver thread in the middle",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0001",
+        "excerpt": "usually created with a combination of six cotton threads separated by a silver thread in the middle",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0006",
+        "excerpt": "جدل الخيوط القطنية التي تضم ست بكرات على الجانبين، يتوسطهما خيط الخوص الفضي",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0007",
+        "excerpt": "The simplest Al Talli designs are made from six threads",
+        "relation": "supports"
+      }
+    ],
+    "note": "عبارة الخليج «ست بكرات على الجانبين» تحتمل ستاً في كل جانب؛ انظر CNF-0007. وصف صفحة اليونسكو مشتق من ملف الترشيح فلا يُعدّ شاهداً مستقلاً."
+  },
+  {
+    "id": "CLM-0007",
+    "text_ar": "يمكن زيادة عدد الخيوط والبكرات وأشرطة الخوص لإنتاج شرائط أعرض وأكثر تعقيداً، وتختلف المصادر في الحد الأعلى المذكور (40 بكرة أو 50 خيطاً).",
+    "status": "probable",
+    "evidence": [
+      {
+        "source": "SRC-0003",
+        "excerpt": "Sometimes, more cotton threads and silver stripes are used to produce a wider ribbon",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0010",
+        "excerpt": "يمكن أن يصل عدد البكرات إلى 40 بكرة",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0007",
+        "excerpt": "although they can number up to 50",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0011",
+        "excerpt": "يستخدم لصنع الكبيرة وضع 14 دحروي خيوط",
+        "relation": "context"
+      }
+    ],
+    "note": "انظر CNF-0004. الحد الأعلى الفعلي معلّق إلى حين الجمع الميداني."
+  },
+  {
+    "id": "CLM-0008",
+    "text_ar": "الأداة الرئيسة في صناعة التلي هي «الكاجوجة»: حامل معدني من قمعين ملتصقين من الرأس تعلوه وسادة تُثبَّت عليها الخيوط ببكراتها بالدبابيس.",
+    "status": "probable",
+    "evidence": [
+      {
+        "source": "SRC-0003",
+        "excerpt": "1(i): The kajuja ... is composed of two funnels whose heads are attached together, and an oval pillow made of cotton sits on top of them",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0005",
+        "excerpt": "وتستخدم (الكَجُوجِة) ... وتتكون من قاعدة معدنية على شكل قمعين ملتصقين من الرأس",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0008",
+        "excerpt": "The kajooja is a stand with two cones and a pillow on top",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0009",
+        "excerpt": "A cone-shaped metal (kajooja) with a cylindrical pillow (al-arah) positioned on top ... The spools of threads in use are pinned to the pillow",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0006",
+        "excerpt": "\"الكاجوجة\" هي مخدة قطن بيضاوية يثبت عليها التلي",
+        "relation": "contradicts"
+      }
+    ],
+    "note": "وجود الأداة وبنيتها العامة متفق عليه، أما ما يدل عليه اسم «الكاجوجة» تحديداً (الحامل، أو الوسادة، أو المجموع) وشكل الوسادة فمختلف فيه: انظر CNF-0003."
+  },
+  {
+    "id": "CLM-0009",
+    "text_ar": "تُستخدم في التلي خيوط من القطن أو الحرير (البريسم) أو الألياف الصناعية، مع شريط معدني يسمى «الخوص»، وكان الخوص قديماً من الفضة أو الذهب الحقيقيين ثم حلّت محله مواد صناعية أرخص.",
+    "status": "probable",
+    "evidence": [
+      {
+        "source": "SRC-0009",
+        "excerpt": "Traditionally, the metallic straw would be real silver or gold, but synthetic materials have replaced the much more expensive alternative",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0008",
+        "excerpt": "threads from either cotton, polyester, or silk; khoos, which is a metallic thread ... In the past, the khoos was made with authentic silver",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0010",
+        "excerpt": "خيوط معدنية اصطناعية، مثل خيوط الذهب أو الفضة، وتُعرف باللهجة الإماراتية باسم \"الخوص\"",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0006",
+        "excerpt": "تلي \"الزري\" ... تلي \"البريسم\" ... عرض خيط الخوص سنتيمتراً واحداً",
+        "relation": "supports"
+      }
+    ],
+    "note": "لا مصدر من المستوى 1–3؛ تاريخ التحول إلى المواد الصناعية غير محدد (يذكر SRC-0008 مقارنة بين قطعتين من الستينيات والثمانينيات بحسب رواية متحدثة). معلّق إلى حين الجمع الميداني والفحص المتحفي للقطع."
+  },
+  {
+    "id": "CLM-0010",
+    "text_ar": "يُستعمل التلي تقليدياً في أكمام الأثواب النسائية وياقاتها وصدرها، وفي أطراف أرجل السراويل النسائية؛ ويُميَّز «البتول» للأكمام، و«البادلة» بمقاساتها لأسفل السراويل.",
+    "status": "probable",
+    "evidence": [
+      {
+        "source": "SRC-0006",
+        "excerpt": "\"البتول ذو فاتلة واحدة\"، ويستخدم في أكمام الأثواب النسائية ... \"البادلة الصغير\" ... تستخدم في أسفل السراويل",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0009",
+        "excerpt": "traditionally applied to the collars and sleeves of a woman’s overgarment (abayah or thawb) as well as on the leg cuffs of the women’s underpants (sirwal)",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0003",
+        "excerpt": "1(i): it was desirable to embroider the chest, neck, and wrist of women’s garments with Talli",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0008",
+        "excerpt": "al-badla – a type of pants with large, heavy embellishment at the bottom",
+        "relation": "supports"
+      }
+    ],
+    "note": "ارتباط البادلة بيوم الزفاف والتوريث من الأم للبنت وارد في SRC-0008 وحده (مستوى 5)."
+  },
+  {
+    "id": "CLM-0011",
+    "text_ar": "تتنوع أنماط التلي ولها أسماء محلية مستمدة من البيئة والأشياء اليومية، منها: «الشطرنج» و«بوجنب» و«فنخ البطيخ» و«بو خوصة» و«بو خوصتين»، وتذكر مصادر أخرى «عين موزة» و«منشارة».",
+    "status": "probable",
+    "evidence": [
+      {
+        "source": "SRC-0006",
+        "excerpt": "أشهرها شكل الشطرنج، وتلي \"بوجنب\"",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0010",
+        "excerpt": "من تصاميم \"التلّي\" الشائعة \"فنخ البطيخ\" ... \"بو خوصة\" (أحادي الحبل) ... \"بو خوصتين\" (ثنائي الحبل)",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0009",
+        "excerpt": "We have identified more than 40 different styles of talli designs ... ain mozah ... minsharah ... finkh al batikhah",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0003",
+        "excerpt": "1(iv): inscriptions and decorations serve as an important source for understanding life in the desert and in the sea",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0008",
+        "excerpt": "The techniques are named after everyday objects",
+        "relation": "supports"
+      }
+    ],
+    "note": "الدلالات الرمزية للأنماط التي يشير إليها ملف الترشيح غير مفصّلة في أي مصدر مفتوح؛ معلّق إلى حين الجمع الميداني. الأسماء في SRC-0009 مرسومة بالحروف اللاتينية."
+  },
+  {
+    "id": "CLM-0012",
+    "text_ar": "حَمَلة التلي نساء في الغالب الأعم، ويؤدي الرجال أدواراً مساندة كجلب المواد الخام وتوصيل المنتج وبيعه؛ ويقدّر ملف الترشيح عدد الممارسات بنحو 4000 امرأة من قبائل متعددة.",
+    "status": "probable",
+    "evidence": [
+      {
+        "source": "SRC-0003",
+        "excerpt": "1(ii): Talli embroidery is almost entirely a female craft. Men might engage in some support roles ... C: the number of the Talli practitioners is around 4000 women",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0002",
+        "excerpt": "R.1: The element's bearers are mainly women, and men might engage in some support roles",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0007",
+        "excerpt": "quotes from practitioners Mariam al-Kalbani (70) and Kulthum al-Mansouri",
+        "relation": "context"
+      }
+    ],
+    "note": "رقم 4000 تقدير ذاتي من الدولة الطرف «بحسب سجلات المشاركة في المهرجانات والجمعيات النسائية» ولا تحقق مستقلاً منه. قرار اللجنة (الفقرة 6) طلب مستقبلاً تفاصيل أوفى عن المجتمعات المعنية."
+  },
+  {
+    "id": "CLM-0013",
+    "text_ar": "تنتقل المهارة تقليدياً بصورة غير رسمية من الأمهات والجدات إلى البنات، ورسمياً عبر دورات وورش في المدارس والجامعات ومراكز التراث والمهرجانات؛ وبحسب ملف الترشيح بلغت الحرفة ذروة رواجها في الستينيات والسبعينيات، وظهرت الحرفيات المحترفات في الثمانينيات، وأنشأت حكومة دبي مراكز تراث في المدارس الحكومية سنة 2011.",
+    "status": "probable",
+    "evidence": [
+      {
+        "source": "SRC-0001",
+        "excerpt": "transmitted informally from mothers to daughters, as well as formally through courses and workshops held in schools, universities and heritage-development centres",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0003",
+        "excerpt": "1(i): particularly popular in the 1960s and 1970s; 1(ii): In the 1980s, professional craftswomen appeared on the scene; 3.a(ii): In 2011, the Government of Dubai established heritage centres in public schools",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0009",
+        "excerpt": "traditionally passed from mother to daughter",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0007",
+        "excerpt": "has been training students and apprentices in the art for 15 years ... it could take a year or two",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0008",
+        "excerpt": "Talli Circle organizes and hosts workshops",
+        "relation": "supports"
+      }
+    ],
+    "note": "التحقيب الزمني (الستينيات/الثمانينيات) وارد في مصدر واحد هو ملف الترشيح؛ يحتاج إلى روايات شفهية ووثائق."
+  },
+  {
+    "id": "CLM-0014",
+    "text_ar": "لاجتماع النساء في البيوت والأحياء لجدل التلي وظيفة اجتماعية، إذ يتيح التواصل وتبادل المعرفة بالحرفة، ويشكّل منتدى لتداول الحكايات الشعبية والأمثال وغيرها من أشكال التعبير الشفهي.",
+    "status": "probable",
+    "evidence": [
+      {
+        "source": "SRC-0003",
+        "excerpt": "1(iv): The gathering of women in houses and residential neighbourhoods for braiding Talli has a social dimension ... cultural forums for communication of folk tales, proverbs",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0001",
+        "excerpt": "These gatherings also serve as cultural forums to share folk tales, proverbs",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0009",
+        "excerpt": "They learn and practice the craft joined by their female relatives and neighbours. Some women would immerse themselves in the craft during the pearl-diving season",
+        "relation": "supports"
+      }
+    ],
+    "note": "ارتباط الممارسة بموسم الغوص وارد في SRC-0009 وحده (مستوى 5)؛ يُعامل فرضية فرعية حتى التحقق الميداني."
+  },
+  {
+    "id": "CLM-0015",
+    "text_ar": "للتلي وظيفة اقتصادية: فهو مصدر دخل لممارساته وللأسرة، وتُباع خيوطه وأشرطته لدور الخياطة؛ وتذكر صحيفة الخليج (2014) أن متر الشريط («الوار») كان يُشترى قديماً بدرهم واحد وأن سعر سروال التلي تجاوز 600 درهم.",
+    "status": "probable",
+    "evidence": [
+      {
+        "source": "SRC-0003",
+        "excerpt": "1(iv): helps in combatting unemployment by providing income for practitioners and jobs for selling Talli threads to fashion and ladies tailoring houses",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0002",
+        "excerpt": "R.1: The element helps in combatting unemployment by providing income",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0006",
+        "excerpt": "كانت محال خياطة الملابس تشتري المتر الواحد من شريط التلي أو ما عرف ... ب \"الوار\" ... بدرهم واحد ... بات سعر سروال من التلي أكثر من 600 درهم",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0008",
+        "excerpt": "Talli was a currency. It allowed women to protect their wealth",
+        "relation": "context"
+      }
+    ],
+    "note": "الأرقام السعرية مصدرها صحفي واحد (مستوى 5) وغير مؤرخة الحقبة بدقة؛ تُعامل مؤشرات لا بيانات."
+  },
+  {
+    "id": "CLM-0016",
+    "text_ar": "ينتشر التلي في مناطق متعددة من الإمارات: الساحلية (أبوظبي، دبي، الشارقة، رأس الخيمة، الفجيرة)، والواحات الداخلية (الذيد، فلج المعلا، شمل، الدقداقة)، والشرقية (دبا، خورفكان، كلباء)، ويذكر ملف الترشيح ممارسته أيضاً في سلطنة عُمان ومصر.",
+    "status": "probable",
+    "evidence": [
+      {
+        "source": "SRC-0003",
+        "excerpt": "D: coastal areas such as Abu Dhabi, Dubai, Sharjah, Ras Al Khaimah, and Fujairah ... Al Dhaid, Falaj Al Mualla, Shamel, and Al Dagdagah ... Dibba, Khor Fakkan, and Kalbaa. It is also in practice in the Sultanate of Oman and in Egypt",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0007",
+        "excerpt": "Kalbani told AFP in Al Ain",
+        "relation": "context"
+      },
+      {
+        "source": "SRC-0008",
+        "excerpt": "extended family from Liwa, where they often practice the craft",
+        "relation": "context"
+      },
+      {
+        "source": "SRC-0011",
+        "excerpt": "انحصر هذا الفن وأساليبه بين الإمارات وعمان ولم يكن له أي وجود في دول الخليج الأخرى",
+        "relation": "contradicts"
+      }
+    ],
+    "note": "التوزيع مصدره الأساس ملف الترشيح؛ لا توجد خريطة كثافة أو أرقام لكل منطقة. انظر CNF-0005. التوزيع الفعلي في مناطق الشارقة معلّق إلى حين الجمع الميداني."
+  },
+  {
+    "id": "CLM-0017",
+    "text_ar": "تواجه الحرفة تهديدات منها: تراجع اهتمام الشابات بتعلّمها، ومنافسة الأشرطة المصنوعة آلياً والمستوردة وماكينات الخياطة، وتقدّم أعمار الحرفيات، وفجوة لغوية وجيلية في النقل؛ ونبّه قرار اللجنة إلى خطر الإفراط في التسليع.",
+    "status": "probable",
+    "evidence": [
+      {
+        "source": "SRC-0007",
+        "excerpt": "young women seem less interested in Al Talli than ever, distracted ... \"by screens and phones\" ... \"It's considered at risk of disappearance\"",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0009",
+        "excerpt": "braids machine-made in Korea and Japan flooded the market, talli making was for a while considered a dying craft",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0006",
+        "excerpt": "بعد ظهور ماكينة الخياطة وقلة الاعتماد على المشغولات اليدوية",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0010",
+        "excerpt": "شارفت على الاندثار مع بزوغ الحداثة وما رافقها من حضور متزايد للصناعات النسيجة",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0008",
+        "excerpt": "The language barrier is another challenge ... a craft that may have skipped a generation",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0002",
+        "excerpt": "Encourages the State Party to monitor the unintended impacts ... in particular the risk of over-commercialization",
+        "relation": "supports"
+      }
+    ],
+    "note": "باستثناء خطر التسليع (قرار اللجنة) فإن التهديدات موثقة بمصادر من المستويين 4–5 وصفياً؛ لا يوجد مسح كمي لأعداد الممارسات أو أعمارهن. معلّق إلى حين الجمع الميداني."
+  },
+  {
+    "id": "CLM-0018",
+    "text_ar": "اقترح ملف الترشيح تدابير صون، منها: خطة وطنية استراتيجية لقطاع الحرف التقليدية، وإطار كفايات وبرنامج تدريبي، ومكتبة إلكترونية وبنك بيانات للتلي ضمن مكتبة الصفا للفنون والتصميم بدبي، وحملة توعية، و«بيوت تعليم التلي» في بيت الحرفيين بأبوظبي ومركز موارد بالشندغة وبيت الحرف بالشارقة، على أن تتولى وزارة الثقافة والشباب التنسيق.",
+    "status": "established",
+    "evidence": [
+      {
+        "source": "SRC-0003",
+        "excerpt": "3.b(i): Develop a strategic national plan ... Design and develop a Talli online library ... Establish the Talli Teaching Houses ... the house of artisans in Abu Dhabi, Mawareeth Centre in the Shandagha Historic District in Dubai and the house of handicraft in Sharjah; 3.b(ii): through the Ministry of Culture and Youth ... main coordinator",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0002",
+        "excerpt": "R.3: developing a strategic national plan ... designing and developing an online Talli library. The Ministry of Culture and Youth will be the main coordinator of the measures",
+        "relation": "supports"
+      }
+    ],
+    "note": "المُثبَت هو أن هذه التدابير «اقتُرحت»، لا أنها نُفّذت. وصيغة «مركز موارد» ترجمة لـ «Mawareeth Centre» والرسم العربي الرسمي غير مثبت. حال التنفيذ في CLM-0019."
+  },
+  {
+    "id": "CLM-0019",
+    "text_ar": "مدى تنفيذ تدابير الصون المقترحة بعد الإدراج (ولا سيما «بيت تعليم التلي» في بيت الحرف بالشارقة، والمكتبة الإلكترونية، والخطة الوطنية) غير موثّق في المصادر المفتوحة؛ والمتاح مؤشرات متفرقة كتصريح دائرة الثقافة والسياحة – أبوظبي عن ترخيص خبراء معتمدين وتنظيم دورات.",
+    "status": "pending_field",
+    "evidence": [
+      {
+        "source": "SRC-0007",
+        "excerpt": "authorities hope to support Al Talli by licensing certified experts to expand production and teaching ... we tried to expedite preservation efforts by organising training courses",
+        "relation": "context"
+      },
+      {
+        "source": "SRC-0003",
+        "excerpt": "3.b(i): the house of handicraft in Sharjah",
+        "relation": "context"
+      }
+    ],
+    "note": "يتطلب: تقرير الدورية للدولة الطرف إن صدر، ومقابلات مع معهد الشارقة للتراث وبيت الحرف بالشارقة. معلّق إلى حين الجمع الميداني."
+  },
+  {
+    "id": "CLM-0020",
+    "text_ar": "يُرجَّح في بعض المصادر أن لفظ «التلي» مأخوذ من التركية «tel» بمعنى السلك أو الخيط اللامع، وأن الحرفة ذات جذور بدوية؛ في حين يرى خبير في معهد الشارقة للتراث أنه لا تتوافر معلومات دقيقة عن أصلها.",
+    "status": "hypothesis",
+    "evidence": [
+      {
+        "source": "SRC-0009",
+        "excerpt": "Originating from the Turkish word tel meaning ‘shining thread’ or ‘wire’ ... has its history rooted in Bedouin tribes",
+        "relation": "supports"
+      },
+      {
+        "source": "SRC-0007",
+        "excerpt": "No precise information on Al Talli's origins exists ... \"it is very difficult to determine the exact date or when it historically began\"",
+        "relation": "contradicts"
+      }
+    ],
+    "note": "التأثيل والأصل غير محسومين؛ يحتاجان إلى مصادر معجمية وتاريخية محكّمة. انظر CNF-0006."
+  }
+]

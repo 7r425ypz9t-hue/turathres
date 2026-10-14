@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true">
+<defs>
+<linearGradient id="scene-sea-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5BA4CF"/><stop offset="1" stop-color="#E8EEDF"/></linearGradient>
+<linearGradient id="scene-sea-water" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2FA3AA"/><stop offset=".35" stop-color="#0E7C86"/><stop offset=".75" stop-color="#1F4E79"/><stop offset="1" stop-color="#12263F"/></linearGradient>
+<linearGradient id="scene-sea-surf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8FD3D2"/><stop offset="1" stop-color="#2FA3AA"/></linearGradient>
+<linearGradient id="scene-sea-ray" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E8FBFA" stop-opacity=".35"/><stop offset="1" stop-color="#E8FBFA" stop-opacity="0"/></linearGradient>
+<linearGradient id="scene-sea-bed" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8C8A6E"/><stop offset="1" stop-color="#3E4A4E"/></linearGradient>
+<linearGradient id="scene-sea-oy" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#B9B2A0"/><stop offset="1" stop-color="#6E6A5E"/></linearGradient>
+<linearGradient id="scene-sea-nacre" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F7F3EA"/><stop offset=".5" stop-color="#D8E6EC"/><stop offset="1" stop-color="#E9D7E4"/></linearGradient>
+<radialGradient id="scene-sea-pearl" cx=".38" cy=".35" r=".7"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".6" stop-color="#F7F3EA"/><stop offset="1" stop-color="#D9C9B0"/></radialGradient>
+<radialGradient id="scene-sea-pglow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFF4D0" stop-opacity=".9"/><stop offset=".4" stop-color="#F0C674" stop-opacity=".35"/><stop offset="1" stop-color="#B8860B" stop-opacity="0"/></radialGradient>
+<linearGradient id="scene-sea-hull" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8A5A36"/><stop offset="1" stop-color="#5A3420"/></linearGradient>
+<pattern id="scene-sea-sand" width="12" height="8" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r=".9" fill="#F7F3EA" fill-opacity=".25"/><circle cx="8" cy="6" r=".8" fill="#12263F" fill-opacity=".2"/></pattern>
+<pattern id="scene-sea-caust" width="60" height="30" patternUnits="userSpaceOnUse"><path d="M0 15q15 -10 30 0t30 0M0 30q15 -10 30 0" stroke="#E8FBFA" stroke-opacity=".08" fill="none" stroke-width="2"/></pattern>
+<clipPath id="scene-sea-uw"><rect x="0" y="180" width="800" height="320"/></clipPath>
+</defs>
+<rect width="800" height="180" fill="url(#scene-sea-sky)"/>
+<circle cx="140" cy="60" r="24" fill="#FFF8E2"/><circle cx="140" cy="60" r="44" fill="#FFF8E2" fill-opacity=".25"/>
+<g fill="#fff" fill-opacity=".7"><path d="M560 60q20 -22 48 -12q18 -12 36 2q22 -2 26 14q-56 6 -110 -4Z"/></g>
+<path d="M0 168L60 160L130 166L200 158L260 168V180H0Z" fill="#B8A88A" fill-opacity=".6"/>
+<rect x="0" y="180" width="800" height="320" fill="url(#scene-sea-water)"/>
+<g clip-path="url(#scene-sea-uw)" fill="url(#scene-sea-ray)">
+<path d="M300 180h40l-80 320h-60Z"/><path d="M420 180h30l20 320h-70Z"/><path d="M540 180h50l90 320h-90Z"/><path d="M180 180h24l-110 320h-40Z"/>
+</g>
+<!-- seabed -->
+<path d="M0 460Q120 440 240 456Q380 474 500 456Q640 436 800 452V500H0Z" fill="url(#scene-sea-bed)"/>
+<path d="M0 460Q120 440 240 456Q380 474 500 456Q640 436 800 452V500H0Z" fill="url(#scene-sea-sand)"/>
+<g stroke="#3E7C3A" stroke-width="3" fill="none" stroke-linecap="round" stroke-opacity=".8"><path d="M20 500q0 -27 1 -55"/><path d="M29 500q8 -16 4 -54"/><path d="M38 500q-1 -26 -9 -58"/><path d="M47 500q-3 -17 1 -45"/><path d="M56 500q-1 -22 7 -33"/><path d="M65 500q-1 -16 -4 -43"/><path d="M74 500q0 -18 2 -35"/><path d="M83 500q-6 -18 9 -49"/><path d="M92 500q6 -18 -6 -30"/><path d="M101 500q-8 -19 -4 -60"/><path d="M110 500q-3 -29 -5 -39"/><path d="M119 500q2 -19 7 -58"/><path d="M128 500q-2 -18 -4 -60"/><path d="M137 500q4 -20 -10 -41"/><path d="M146 500q5 -18 -6 -38"/><path d="M155 500q-6 -21 -1 -56"/><path d="M164 500q-8 -25 0 -32"/><path d="M173 500q1 -21 -1 -45"/><path d="M182 500q2 -18 5 -45"/><path d="M191 500q-3 -16 -2 -60"/><path d="M620 500q-8 -27 1 -57"/><path d="M628 500q4 -16 7 -55"/><path d="M636 500q5 -21 2 -48"/><path d="M644 500q-8 -23 -9 -52"/><path d="M652 500q-3 -25 -4 -33"/><path d="M660 500q-1 -30 4 -41"/><path d="M668 500q8 -21 6 -38"/><path d="M676 500q6 -17 8 -53"/><path d="M684 500q3 -29 -1 -31"/><path d="M692 500q5 -17 -4 -40"/><path d="M700 500q8 -25 1 -59"/><path d="M708 500q-4 -21 -2 -59"/><path d="M716 500q-6 -20 0 -39"/><path d="M724 500q-3 -28 -8 -50"/><path d="M732 500q-4 -27 -1 -45"/><path d="M740 500q-3 -27 -9 -32"/><path d="M748 500q4 -16 -3 -53"/><path d="M756 500q3 -29 -2 -44"/><path d="M764 500q5 -18 -9 -59"/><path d="M772 500q-7 -28 5 -40"/><path d="M780 500q-2 -18 8 -60"/><path d="M788 500q-4 -26 3 -33"/></g>
+<g fill="#A0522D" fill-opacity=".75"><path d="M700 456q-4 -20 6 -30q-2 14 4 18q2 -14 12 -18q-6 12 -2 30Z"/><path d="M90 462q-6 -16 2 -26q0 10 6 12q0 -10 8 -14q-4 12 -2 28Z"/></g>
+<g transform="translate(210 470) rotate(-8) scale(1)"><path d="M-14 0Q-16 -10 -4 -12Q8 -14 14 -6Q16 2 6 4Q-8 6 -14 0Z" fill="url(#scene-sea-oy)"/><path d="M-10 -4Q0 -10 10 -6M-8 0Q2 -4 10 -1" stroke="#3B4A52" stroke-opacity=".5" fill="none" stroke-width="1"/></g><g transform="translate(240 480) rotate(6) scale(1.2)"><path d="M-14 0Q-16 -10 -4 -12Q8 -14 14 -6Q16 2 6 4Q-8 6 -14 0Z" fill="url(#scene-sea-oy)"/><path d="M-10 -4Q0 -10 10 -6M-8 0Q2 -4 10 -1" stroke="#3B4A52" stroke-opacity=".5" fill="none" stroke-width="1"/></g><g transform="translate(280 474) rotate(-12) scale(0.9)"><path d="M-14 0Q-16 -10 -4 -12Q8 -14 14 -6Q16 2 6 4Q-8 6 -14 0Z" fill="url(#scene-sea-oy)"/><path d="M-10 -4Q0 -10 10 -6M-8 0Q2 -4 10 -1" stroke="#3B4A52" stroke-opacity=".5" fill="none" stroke-width="1"/></g><g transform="translate(330 486) rotate(4) scale(1.1)"><path d="M-14 0Q-16 -10 -4 -12Q8 -14 14 -6Q16 2 6 4Q-8 6 -14 0Z" fill="url(#scene-sea-oy)"/><path d="M-10 -4Q0 -10 10 -6M-8 0Q2 -4 10 -1" stroke="#3B4A52" stroke-opacity=".5" fill="none" stroke-width="1"/></g><g transform="translate(360 472) rotate(10) scale(0.8)"><path d="M-14 0Q-16 -10 -4 -12Q8 -14 14 -6Q16 2 6 4Q-8 6 -14 0Z" fill="url(#scene-sea-oy)"/><path d="M-10 -4Q0 -10 10 -6M-8 0Q2 -4 10 -1" stroke="#3B4A52" stroke-opacity=".5" fill="none" stroke-width="1"/></g><g transform="translate(560 482) rotate(-6) scale(1.1)"><path d="M-14 0Q-16 -10 -4 -12Q8 -14 14 -6Q16 2 6 4Q-8 6 -14 0Z" fill="url(#scene-sea-oy)"/><path d="M-10 -4Q0 -10 10 -6M-8 0Q2 -4 10 -1" stroke="#3B4A52" stroke-opacity=".5" fill="none" stroke-width="1"/></g><g transform="translate(600 470) rotate(8) scale(0.9)"><path d="M-14 0Q-16 -10 -4 -12Q8 -14 14 -6Q16 2 6 4Q-8 6 -14 0Z" fill="url(#scene-sea-oy)"/><path d="M-10 -4Q0 -10 10 -6M-8 0Q2 -4 10 -1" stroke="#3B4A52" stroke-opacity=".5" fill="none" stroke-width="1"/></g><g transform="translate(520 490) rotate(0) scale(1.3)"><path d="M-14 0Q-16 -10 -4 -12Q8 -14 14 -6Q16 2 6 4Q-8 6 -14 0Z" fill="url(#scene-sea-oy)"/><path d="M-10 -4Q0 -10 10 -6M-8 0Q2 -4 10 -1" stroke="#3B4A52" stroke-opacity=".5" fill="none" stroke-width="1"/></g><g transform="translate(150 488) rotate(12) scale(1)"><path d="M-14 0Q-16 -10 -4 -12Q8 -14 14 -6Q16 2 6 4Q-8 6 -14 0Z" fill="url(#scene-sea-oy)"/><path d="M-10 -4Q0 -10 10 -6M-8 0Q2 -4 10 -1" stroke="#3B4A52" stroke-opacity=".5" fill="none" stroke-width="1"/></g><g transform="translate(660 488) rotate(-4) scale(0.9)"><path d="M-14 0Q-16 -10 -4 -12Q8 -14 14 -6Q16 2 6 4Q-8 6 -14 0Z" fill="url(#scene-sea-oy)"/><path d="M-10 -4Q0 -10 10 -6M-8 0Q2 -4 10 -1" stroke="#3B4A52" stroke-opacity=".5" fill="none" stroke-width="1"/></g>
+<!-- open oyster with pearl -->
+<g transform="translate(432 456) scale(.62)">
+<circle cx="0" cy="-10" r="80" fill="url(#scene-sea-pglow)"/>
+<path d="M-30 0Q-34 -18 -12 -22Q14 -24 30 -10Q34 2 18 6Q-10 10 -30 0Z" fill="url(#scene-sea-oy)"/>
+<path d="M-26 -2Q-24 -14 -6 -16Q14 -16 26 -8Q22 2 4 2Q-14 2 -26 -2Z" fill="url(#scene-sea-nacre)"/>
+<path d="M-30 -6Q-40 -34 -18 -48Q8 -58 26 -38Q32 -24 28 -12Q8 -22 -12 -18Q-26 -14 -30 -6Z" fill="url(#scene-sea-oy)"/>
+<path d="M-26 -10Q-30 -30 -14 -40Q6 -46 22 -32Q24 -22 24 -16Q6 -24 -10 -20Q-22 -16 -26 -10Z" fill="url(#scene-sea-nacre)" fill-opacity=".9"/>
+<circle cx="2" cy="-9" r="7" fill="url(#scene-sea-pearl)"/>
+<circle cx="0" cy="-11" r="2" fill="#fff"/>
+</g>
+<!-- ropes -->
+<path d="M486 168L470 448" stroke="#D9B26F" stroke-width="1.8"/>
+<path d="M466 448h10l3 8h-16Z" fill="#5E5A52"/>
+<path d="M520 170Q540 260 470 340Q440 372 400 386" stroke="#D9B26F" stroke-width="1.6" fill="none"/>
+<!-- diver -->
+<g fill="#0B2A3A" stroke="#0B2A3A" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="384" cy="402" r="8" stroke="none"/>
+<path d="M378 410L338 386" stroke-width="17"/>
+<path d="M342 388L302 366M338 384L306 352" stroke-width="8.5" fill="none"/>
+<path d="M300 364L286 366M304 352L294 342" stroke-width="5"/>
+<path d="M384 412L412 434M378 414L400 442" stroke-width="5.5" fill="none"/>
+<path d="M370 404L392 420" stroke="#D9B26F" stroke-width="1.6" fill="none"/>
+<path d="M398 426q8 0 10 8q-6 10 -16 6Z" fill="#6B4A2E" stroke="none"/>
+</g>
+<path d="M392 397l4 -1" stroke="#D9B26F" stroke-width="2" stroke-linecap="round"/>
+<g fill="#E8FBFA" fill-opacity=".6"><circle cx="452" cy="330" r="3.0"/><circle cx="458" cy="312" r="2.2"/><circle cx="449" cy="296" r="2.6"/><circle cx="456" cy="278" r="1.8"/><circle cx="452" cy="262" r="2.2"/><circle cx="460" cy="246" r="1.6"/><circle cx="455" cy="228" r="2.0"/><circle cx="462" cy="214" r="1.4"/><circle cx="300" cy="380" r="2.0"/><circle cx="304" cy="362" r="1.5"/><circle cx="298" cy="344" r="1.8"/><circle cx="620" cy="400" r="2.0"/><circle cx="616" cy="384" r="1.5"/></g>
+<g fill="#5BA4CF" fill-opacity=".7"><path d="M620 300q10 -8 22 0q-10 8 -22 0Zm22 0l6 -5v10Z"/><path d="M650 320q8 -6 18 0q-8 6 -18 0Zm18 0l5 -4v8Z"/><path d="M600 330q8 -6 18 0q-8 6 -18 0Zm18 0l5 -4v8Z"/><path d="M160 290q8 -6 18 0q-8 6 -18 0Zm0 0l-5 -4v8Z"/></g>
+<!-- hull below water -->
+<path d="M410 180Q430 210 520 214Q620 216 660 180Z" fill="#3A2A22" fill-opacity=".45"/>
+<!-- surface -->
+<path d="M0 180q20 -4 40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0V186H0Z" fill="url(#scene-sea-surf)" fill-opacity=".9"/>
+<path d="M0 182q20 -4 40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0" stroke="#E8FBFA" stroke-width="1.6" fill="none" stroke-opacity=".8"/>
+<!-- dhow (anchored, sail furled) -->
+<g>
+<path d="M520 172L524 52" stroke="#3D2414" stroke-width="5" stroke-linecap="round"/>
+<path d="M430 96L640 70" stroke="#3D2414" stroke-width="3.5" stroke-linecap="round"/>
+<path d="M440 98Q530 84 630 74Q632 82 600 84Q520 92 444 104Z" fill="#F2E6CC"/>
+<path d="M460 98l2 6M490 94l2 7M520 91l2 7M550 88l2 7M580 85l2 6M610 81l2 6" stroke="#B49A74" stroke-width="1.4"/>
+<path d="M524 56L430 96M524 56L640 70M524 60L404 150M524 60L676 150" stroke="#3D2414" stroke-width=".8" stroke-opacity=".7"/>
+<path d="M396 140L410 176Q450 196 540 196Q630 196 664 176L700 132L704 128L696 146L660 160Q540 168 420 160L410 140Z" fill="url(#scene-sea-hull)"/>
+<path d="M410 160Q540 168 660 160L696 146" stroke="#D9B26F" stroke-width="2" fill="none"/>
+<path d="M412 172Q540 182 668 170" stroke="#3D2414" stroke-width="1" fill="none" stroke-opacity=".5"/>
+<path d="M392 128h40v14h-40Z" fill="#6B4A2E"/><path d="M392 118h40M396 118v10M406 118v10M416 118v10M426 118v10" stroke="#5A3420" stroke-width="1.6"/><path d="M392 128h40" stroke="#D9B26F" stroke-width="1.4"/>
+<g stroke="#5A3420" stroke-width="3" stroke-linecap="round"><path d="M440 170L420 200M470 172L456 204M600 172L616 204M630 170L652 198"/></g>
+<g fill="#3D2414"><circle cx="470" cy="150" r="5"/><path d="M464 156h12v8h-12Z"/><circle cx="560" cy="150" r="5"/><path d="M554 156h12v8h-12Z"/></g>
+<g fill="#F2E6CC"><path d="M464 146q6 -6 12 0v-2q-6 -4 -12 0Z"/><path d="M554 146q6 -6 12 0v-2q-6 -4 -12 0Z"/></g>
+</g>
+<g stroke="#3B2C26" stroke-width="1.4" fill="none" stroke-linecap="round"><path d="M300 70q5.2 -6.5 11.7 -1.3q5.2 -5.2 11.7 1.3M326 60q4 -5 9 -1q4 -4 9 1M700 40q4.4 -5.5 9.9 -1.1q4.4 -4.4 9.9 1.1"/></g>
+</svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-hidden="true">
+<defs>
+<radialGradient id="logo-turath-bg" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#2D6A9F"/><stop offset=".6" stop-color="#1F4E79"/><stop offset="1" stop-color="#12263F"/></radialGradient>
+<linearGradient id="logo-turath-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F7DFA2"/><stop offset=".45" stop-color="#D4A62A"/><stop offset="1" stop-color="#8A6414"/></linearGradient>
+<linearGradient id="logo-turath-tower" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#C99A2E"/><stop offset=".55" stop-color="#F0D28A"/><stop offset="1" stop-color="#B8860B"/></linearGradient>
+<linearGradient id="logo-turath-page" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#EADFC8"/></linearGradient>
+<radialGradient id="logo-turath-pearl" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".6" stop-color="#F7F3EA"/><stop offset="1" stop-color="#CFC3AE"/></radialGradient>
+<radialGradient id="logo-turath-glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFF4D0" stop-opacity=".7"/><stop offset="1" stop-color="#FFF4D0" stop-opacity="0"/></radialGradient>
+</defs>
+<circle cx="60" cy="60" r="58" fill="url(#logo-turath-gold)"/>
+<circle cx="60" cy="60" r="54.5" fill="#12263F"/>
+<circle cx="60" cy="60" r="53" fill="url(#logo-turath-gold)"/>
+<circle cx="60" cy="60" r="49" fill="url(#logo-turath-bg)"/>
+<g fill="#D4A62A" fill-opacity=".55"><circle cx="112.0" cy="60.0" r=".9"/><circle cx="110.2" cy="73.5" r=".9"/><circle cx="105.0" cy="86.0" r=".9"/><circle cx="96.8" cy="96.8" r=".9"/><circle cx="86.0" cy="105.0" r=".9"/><circle cx="73.5" cy="110.2" r=".9"/><circle cx="60.0" cy="112.0" r=".9"/><circle cx="46.5" cy="110.2" r=".9"/><circle cx="34.0" cy="105.0" r=".9"/><circle cx="23.2" cy="96.8" r=".9"/><circle cx="15.0" cy="86.0" r=".9"/><circle cx="9.8" cy="73.5" r=".9"/><circle cx="8.0" cy="60.0" r=".9"/><circle cx="9.8" cy="46.5" r=".9"/><circle cx="15.0" cy="34.0" r=".9"/><circle cx="23.2" cy="23.2" r=".9"/><circle cx="34.0" cy="15.0" r=".9"/><circle cx="46.5" cy="9.8" r=".9"/><circle cx="60.0" cy="8.0" r=".9"/><circle cx="73.5" cy="9.8" r=".9"/><circle cx="86.0" cy="15.0" r=".9"/><circle cx="96.8" cy="23.2" r=".9"/><circle cx="105.0" cy="34.0" r=".9"/><circle cx="110.2" cy="46.5" r=".9"/></g>
+<circle cx="60" cy="60" r="44" fill="none" stroke="#D4A62A" stroke-opacity=".35" stroke-width=".8"/>
+<circle cx="60" cy="24" r="12" fill="url(#logo-turath-glow)"/>
+<path d="M50 78V40h20v38Z" fill="url(#logo-turath-tower)"/>
+<path d="M48 40h24v-4h-24Z" fill="#F7DFA2"/>
+<path d="M48 36v-3l2 -2.5l2 2.5v3ZM53 36v-3l2 -2.5l2 2.5v3ZM58 36v-3l2 -2.5l2 2.5v3ZM63 36v-3l2 -2.5l2 2.5v3ZM68 36v-3l2 -2.5l2 2.5v3Z" fill="#F7DFA2"/>
+<g fill="#12263F"><rect x="53" y="43" width="3" height="16" rx="1"/><rect x="58.5" y="43" width="3" height="16" rx="1"/><rect x="64" y="43" width="3" height="16" rx="1"/></g>
+<path d="M50 62h20M50 65h20" stroke="#8A6414" stroke-width="1"/>
+<path d="M57 78v-7q3 -3 6 0v7Z" fill="#12263F"/>
+<circle cx="60" cy="24" r="5.2" fill="url(#logo-turath-pearl)"/>
+<circle cx="58.4" cy="22.4" r="1.4" fill="#fff"/>
+<path d="M60 92Q48 84 30 86V76Q48 74 60 82Q72 74 90 76V86Q72 84 60 92Z" fill="#B8860B"/>
+<path d="M60 89Q48 80 32 82V73Q48 71 60 79Z" fill="url(#logo-turath-page)"/>
+<path d="M60 89Q72 80 88 82V73Q72 71 60 79Z" fill="url(#logo-turath-page)"/>
+<path d="M60 79V89" stroke="#B8860B" stroke-width="1"/>
+<path d="M36 77Q46 75 55 80M36 80.5Q46 78.5 55 83.5M84 77Q74 75 65 80M84 80.5Q74 78.5 65 83.5" stroke="#1F4E79" stroke-opacity=".45" stroke-width=".8" fill="none"/>
+<path d="M38 99q5.5 -3 11 0t11 0t11 0t11 0" stroke="#D4A62A" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-opacity=".8"/>
+</svg>

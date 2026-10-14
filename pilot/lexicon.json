@@ -1,0 +1,210 @@
+[
+  {
+    "term": "التلي / التّلي",
+    "meaning": "الحرفة نفسها، والشريط المجدول الناتج عنها",
+    "context": "«التّلي حرفة يدوية إماراتية تقليدية تعتمد على لف ونسج عدد من الخيوط»",
+    "source": "SRC-0010",
+    "confidence": "high",
+    "pending_field_verification": true
+  },
+  {
+    "term": "Alseen / Sein (الرسم العربي غير مثبت)",
+    "meaning": "اسم بديل للتلي",
+    "context": "«Also known as Alseen» و«also named ... Sein»",
+    "source": "SRC-0003",
+    "confidence": "medium",
+    "pending_field_verification": true
+  },
+  {
+    "term": "تلي بوادل",
+    "meaning": "اسم بديل للحرفة (أو نوع منها)",
+    "context": "«وتسمى هذه الحرفة بـ\"تلي بوادل\" أو \"تلي بتول\"»؛ وفي ملف الترشيح Talli Bawadil",
+    "source": "SRC-0011",
+    "confidence": "medium",
+    "pending_field_verification": true
+  },
+  {
+    "term": "البتول / تلي بتول",
+    "meaning": "نوع من التلي «ذو فاتلة واحدة» يُستخدم في أكمام الأثواب النسائية",
+    "context": "«\"البتول ذو فاتلة واحدة\"، ويستخدم في أكمام الأثواب النسائية»",
+    "source": "SRC-0006",
+    "confidence": "medium",
+    "pending_field_verification": true
+  },
+  {
+    "term": "البادلة",
+    "meaning": "نوع/مقاس من التلي يُخاط في أسفل السراويل النسائية (صغيرة وكبيرة)؛ ويطلق أيضاً على السروال المزيّن",
+    "context": "«\"البادلة الصغير\" ... تستخدم في أسفل السراويل»؛ و«al-badla – a type of pants with large, heavy embellishment at the bottom» (SRC-0008)",
+    "source": "SRC-0006",
+    "confidence": "medium",
+    "pending_field_verification": true
+  },
+  {
+    "term": "الكاجوجة / الكَجُوجِة / kajuja / kajooja",
+    "meaning": "الأداة الرئيسة: حامل معدني من قمعين تعلوه وسادة (والمرجع الدقيق مختلف فيه)",
+    "context": "انظر CNF-0003",
+    "source": "SRC-0005",
+    "confidence": "medium",
+    "pending_field_verification": true
+  },
+  {
+    "term": "الكوجة",
+    "meaning": "صيغة أخرى لاسم الأداة نفسها",
+    "context": "«وتستخدم \"الكوجة\" في عمل التلّي»",
+    "source": "SRC-0011",
+    "confidence": "low",
+    "pending_field_verification": true
+  },
+  {
+    "term": "مخدة الكاجوجة",
+    "meaning": "الوسادة القطنية التي تُثبّت عليها أطراف الخيوط بإبرة",
+    "context": "«تثبت بإبرة صغيرة على \"مخدة الكاجوجة\"»",
+    "source": "SRC-0006",
+    "confidence": "medium",
+    "pending_field_verification": true
+  },
+  {
+    "term": "al-arah (الرسم العربي غير مثبت)",
+    "meaning": "اسم الوسادة الاسطوانية فوق الحامل المعدني",
+    "context": "«a cylindrical pillow (al-arah) positioned on top»",
+    "source": "SRC-0009",
+    "confidence": "low",
+    "pending_field_verification": true
+  },
+  {
+    "term": "Mousadah (الرسم العربي غير مثبت؛ قد تكون «المسدّة/الموسدة»)",
+    "meaning": "الوسادة المستديرة التي يُجدل عليها التلي",
+    "context": "«a round cushion called a Mousadah»",
+    "source": "SRC-0007",
+    "confidence": "low",
+    "pending_field_verification": true
+  },
+  {
+    "term": "الخوص / الخوصة / khoos / khus",
+    "meaning": "الشريط المعدني اللامع (فضي أو ذهبي، حقيقي قديماً وصناعي حديثاً) في وسط الشريط",
+    "context": "«خيوط معدنية اصطناعية ... وتُعرف باللهجة الإماراتية باسم \"الخوص\"»",
+    "source": "SRC-0010",
+    "confidence": "high",
+    "pending_field_verification": true
+  },
+  {
+    "term": "الزري",
+    "meaning": "خيوط فضية أو ذهبية بعرض الخيوط العادية؛ و«تلي الزري» نوع يُجدل منها",
+    "context": "«أما تلي \"الزري\" فهو جدل خيوط الزري على الجانبين»",
+    "source": "SRC-0006",
+    "confidence": "medium",
+    "pending_field_verification": true
+  },
+  {
+    "term": "البريسم / braysum / brisam",
+    "meaning": "خيوط حرير أكثر لمعاناً؛ و«تلي البريسم» نوع منها",
+    "context": "«تلي \"البريسم\" فيقوم على جدل خيوط البريسم على الجانبين»",
+    "source": "SRC-0006",
+    "confidence": "medium",
+    "pending_field_verification": true
+  },
+  {
+    "term": "الهدوب",
+    "meaning": "الخيوط الملونة التي تُنسج من ست بكرات",
+    "context": "«نسج ست بكرات من الخيوط \"الهدوب\" الملونة»",
+    "source": "SRC-0006",
+    "confidence": "medium",
+    "pending_field_verification": true
+  },
+  {
+    "term": "الدحاري (مفرده: دحروي)",
+    "meaning": "البكرات التي تُلف عليها الخيوط",
+    "context": "«تستخدم بكرتان (أو \"دحاري\" باللهجة الشعبية)»",
+    "source": "SRC-0010",
+    "confidence": "medium",
+    "pending_field_verification": true
+  },
+  {
+    "term": "الوار",
+    "meaning": "وحدة قياس تقليدية لشريط التلي (المتر بحسب المصدر)",
+    "context": "«المتر الواحد من شريط التلي أو ما عرف في التراث الإماراتي القديم ب \"الوار\"»",
+    "source": "SRC-0006",
+    "confidence": "low",
+    "pending_field_verification": true
+  },
+  {
+    "term": "فاتلة / فتلة (fatlah, ftul)",
+    "meaning": "الضفيرة أو الشريط المفرد؛ و«talli fatlah» نمط يشبه الغرزة الجارية",
+    "context": "«ribbons (fatlat or ftul)» و«البتول ذو فاتلة واحدة» (SRC-0006)",
+    "source": "SRC-0009",
+    "confidence": "medium",
+    "pending_field_verification": true
+  },
+  {
+    "term": "بو خوصة",
+    "meaning": "تقنية/نمط أحادي الحبل ببكرة خوص واحدة",
+    "context": "«تستخدم تقنية \"بو خوصة\" (أحادي الحبل) بكرة واحدة لخلق حزمة فضية»",
+    "source": "SRC-0010",
+    "confidence": "medium",
+    "pending_field_verification": true
+  },
+  {
+    "term": "بو خوصتين",
+    "meaning": "تقنية/نمط ثنائي الحبل ببكرتين من الخوص تشكّل حزمة فضية عريضة",
+    "context": "«عبارة \"بو خوصتين\" (ثنائي الحبل)»",
+    "source": "SRC-0010",
+    "confidence": "medium",
+    "pending_field_verification": true
+  },
+  {
+    "term": "ساير ياي",
+    "meaning": "عبارة تصف طريقة تمرير خيط فضي واحد ذهاباً وإياباً",
+    "context": "«وتصف عبارة \"ساير ياي\" (باللهجة الإماراتية) الطريقة المتبعة»",
+    "source": "SRC-0010",
+    "confidence": "medium",
+    "pending_field_verification": true
+  },
+  {
+    "term": "فنخ البطيخ / finkh al batikhah",
+    "meaning": "نمط بخطوط مائلة متوازية وأشكال تشبه بذور البطيخ أو شريحته",
+    "context": "«من تصاميم \"التلّي\" الشائعة \"فنخ البطيخ\"»",
+    "source": "SRC-0010",
+    "confidence": "medium",
+    "pending_field_verification": true
+  },
+  {
+    "term": "الشطرنج",
+    "meaning": "نمط زخرفي هندسي شائع",
+    "context": "«أشهرها شكل الشطرنج»",
+    "source": "SRC-0006",
+    "confidence": "medium",
+    "pending_field_verification": true
+  },
+  {
+    "term": "بوجنب",
+    "meaning": "نمط/نوع من التلي",
+    "context": "«وتلي \"بوجنب\"»",
+    "source": "SRC-0006",
+    "confidence": "low",
+    "pending_field_verification": true
+  },
+  {
+    "term": "ain mozah (عين موزة – رسم عربي اجتهادي)",
+    "meaning": "نمط بشكل بيضوي متكرر يشبه العين، نسبة إلى «الموزة» أي اللؤلؤة المستطيلة في لهجة الخليج",
+    "context": "«Talli ain mozah: meaning Mozah’s eye»",
+    "source": "SRC-0009",
+    "confidence": "low",
+    "pending_field_verification": true
+  },
+  {
+    "term": "minsharah (منشارة – رسم عربي اجتهادي)",
+    "meaning": "نمط بأسنان حادة كالمنشار",
+    "context": "«Talli minsharah ... saw-tooth pattern»",
+    "source": "SRC-0009",
+    "confidence": "low",
+    "pending_field_verification": true
+  },
+  {
+    "term": "al-talli marahal («التلي مراحل»)",
+    "meaning": "قول متداول بأن التلي مراحل/أطوار تبدأ بالبسيط وتنتهي بالبادلة",
+    "context": "«“al–talli marahal” (talli is phases) is a widely known saying»",
+    "source": "SRC-0008",
+    "confidence": "low",
+    "pending_field_verification": true
+  }
+]
