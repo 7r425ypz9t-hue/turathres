@@ -18,7 +18,7 @@ MODES = {
 
 
 def default_home() -> Path:
-    return Path(os.environ.get("TURATH_HOME", Path.home() / "Turath"))
+    return Path(os.environ.get("TURATH_HOME") or Path.home() / "Turath")
 
 
 @dataclass

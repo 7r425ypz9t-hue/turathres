@@ -12,7 +12,6 @@ import re
 import ssl
 import threading
 import traceback
-import webbrowser
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, quote, unquote, urlparse
@@ -32,6 +31,8 @@ from . import vault
 from .config import CFG, MODES
 
 STATIC = Path(__file__).parent / "static"
+from .desktop import fingerprint as _fp  # noqa: E402
+BUILD = _fp()
 ROOT = Path(__file__).parent.parent
 DOCS = ROOT / "docs"
 MAX_UPLOAD = 1024 * 1024 * 1024   # 1 جيجابايت للملف الواحد
@@ -171,7 +172,7 @@ class Handler(BaseHTTPRequestHandler):
                 return self._json({"token": tok, "user": auth.public(auth.user_for(tok))})
             if path == "/api/public":
                 return self._json({"institution": CFG.institution, "mode": CFG.mode, "mode_label": MODES[CFG.mode]["label"],
-                                   "version": __version__})
+                                   "version": __version__, "build": BUILD})
             user = self._user()
             return self._api(method, path, q, user)
         except ApiError as e:
@@ -205,6 +206,13 @@ class Handler(BaseHTTPRequestHandler):
         head = seg[0]
         if head == "me":
             return self._json({"user": user, "info": info()})
+        if head == "shutdown" and method == "POST":
+            # إيقاف الخادم لتشغيل نسخة أحدث — في النمط الفردي وحده، ولصاحب الإدارة
+            if CFG.mode != "solo" or user["role"] not in ("director", "admin"):
+                raise db.Denied("الإيقاف من اللوحة متاح في النمط الفردي لصاحب الإدارة")
+            self._json({"ok": True})
+            threading.Thread(target=self.server.shutdown, daemon=True).start()
+            return
         if head == "logout" and method == "POST":
             auth.logout((self.headers.get("Authorization") or "").removeprefix("Bearer ").strip())
             return self._json({"ok": True})
@@ -407,11 +415,38 @@ class Handler(BaseHTTPRequestHandler):
         return self._json(p)
 
 
+def _log_to_file() -> None:
+    """عند التشغيل بلا نافذة (pythonw) لا مخرج قياسي: تُكتب الرسائل في سجل داخل مجلد البيانات."""
+    import sys
+    if sys.stdout is None or sys.stderr is None:
+        CFG.home.mkdir(parents=True, exist_ok=True)
+        f = open(CFG.home / "turath.log", "a", encoding="utf-8", buffering=1)
+        sys.stdout = sys.stdout or f
+        sys.stderr = sys.stderr or f
+
+
 def serve(open_browser: bool = True, port: int | None = None) -> None:
+    from . import desktop
+    _log_to_file()
     db.init()
     host = CFG.bind_host()
     port = port or CFG.port
-    httpd = ThreadingHTTPServer((host, port), Handler)
+    live = desktop.running(port)
+    if live and CFG.mode == "solo":
+        owner = auth.ensure_owner()
+        tok = auth.new_session(owner["id"])
+        if live.get("build") == BUILD:
+            # الأيقونة نُقرت واللوحة تعمل: نافذة جديدة للخادم القائم
+            print("اللوحة تعمل من قبل؛ فُتحت نافذة جديدة لها.")
+            if open_browser:
+                desktop.open_window(f"http://127.0.0.1:{port}/#t={tok}")
+            return
+        print("تعمل نسخة أقدم من اللوحة؛ تُوقف وتُشغَّل النسخة المحدَّثة.")
+        desktop.stop_running(port, tok)
+    try:
+        httpd = ThreadingHTTPServer((host, port), Handler)
+    except OSError as e:
+        raise SystemExit(f"المنفذ {port} مشغول ببرنامج آخر؛ غيّروه بالأمر: turath setup solo --port 8790  ({e})")
     scheme = "http"
     if CFG.tls_cert and CFG.tls_key:
         ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
@@ -427,7 +462,7 @@ def serve(open_browser: bool = True, port: int | None = None) -> None:
     if CFG.mode != "solo" and not auth.users():
         print("لا حسابات بعد: أنشئ المسؤول بالأمر  turath user add <اسم> --role admin")
     if open_browser:
-        threading.Timer(0.8, lambda: webbrowser.open(url)).start()
+        threading.Timer(0.8, lambda: desktop.open_window(url)).start()
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:

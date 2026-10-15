@@ -259,6 +259,37 @@ class TestPilot(Base):
         self.assertEqual(pilot.import_pilot(self.a)["project"], r["project"])
 
 
+class TestDesktop(unittest.TestCase):
+    def test_fingerprint_changes_with_code(self):
+        from turath import desktop
+        a = desktop.fingerprint()
+        self.assertEqual(a, desktop.fingerprint())
+        self.assertEqual(len(a), 16)
+
+    @unittest.skipIf(os.name == "nt" or sys.platform == "darwin", "اختبار أيقونة لينكس")
+    def test_linux_icon_install_and_remove(self):
+        from turath import desktop
+        with tempfile.TemporaryDirectory() as h:
+            old = os.environ.get("HOME")
+            os.environ["HOME"] = h
+            try:
+                (Path(h) / "Desktop").mkdir()
+                made = desktop.install_icon()
+                self.assertTrue(all(p.exists() for p in made))
+                text = made[0].read_text(encoding="utf-8")
+                self.assertIn("Name=تراث", text)
+                self.assertIn("-m turath serve", text)
+                gone = desktop.install_icon(remove=True)
+                self.assertEqual(len(gone), len(made))
+                self.assertFalse(any(p.exists() for p in made))
+            finally:
+                os.environ["HOME"] = old or ""
+
+    def test_running_detects_nothing_on_free_port(self):
+        from turath import desktop
+        self.assertIsNone(desktop.running(1))
+
+
 class TestServer(Base):
     def setUp(self):
         super().setUp()
@@ -303,6 +334,12 @@ class TestServer(Base):
             self.assertEqual(cm.exception.code, 403)
         finally:
             CFG.mode = "team"
+
+    def test_public_reports_build_and_shutdown_is_solo_only(self):
+        code, d = self.req("/api/public")
+        self.assertIn("build", d)
+        _, login = self.req("/api/login", {"username": "dir", "password": "password-3"})
+        self.assertEqual(self.req("/api/shutdown", {}, token=login["token"], method="POST")[0], 403)
 
     def test_static_and_path_traversal(self):
         with urllib.request.urlopen(f"http://127.0.0.1:{self.port}/") as r:

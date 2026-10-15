@@ -99,6 +99,15 @@ def cmd_forms_gen(a):
         print(p)
 
 
+def cmd_icon(a):
+    from .desktop import install_icon
+    done = install_icon(remove=a.remove)
+    for p in done:
+        print(("أُزيلت: " if a.remove else "أُنشئت: ") + str(p))
+    if not done:
+        print("لا شيء لإزالته." if a.remove else "تعذّر إنشاء الأيقونة.")
+
+
 def cmd_pilot(a):
     _init(a.home)
     from . import auth, pilot, db
@@ -137,6 +146,9 @@ def main(argv=None):
     sp.add_parser("skills-gen", help="توليد مهارات Claude Code من سجل المهارات").set_defaults(fn=cmd_skills_gen)
     sp.add_parser("docs-gen", help="توليد وثائق المخطط والوكلاء والمهارات ومهارات Claude Code").set_defaults(fn=cmd_docs_gen)
     sp.add_parser("forms-gen", help="توليد الاستمارات بصيغة Word بالهوية البصرية").set_defaults(fn=cmd_forms_gen)
+    s = sp.add_parser("install-icon", help="أيقونة «تراث» على سطح المكتب وفي قائمة البرامج")
+    s.add_argument("--remove", action="store_true")
+    s.set_defaults(fn=cmd_icon)
     s = sp.add_parser("pilot", help="استيراد النموذج التطبيقي التجريبي")
     s.add_argument("--user")
     s.set_defaults(fn=cmd_pilot)
