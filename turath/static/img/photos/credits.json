@@ -1,0 +1,230 @@
+[
+ {
+  "slot": "hero",
+  "file": "hero.jpg",
+  "original": "Vintage Monochrome Harbor Town.png",
+  "used_for": "الواجهة الرئيسية ودليل البدء",
+  "kind": "conceptual",
+  "size": [
+   1995,
+   788
+  ],
+  "rights": "مقدَّمة من صاحب الإدارة لواجهة اللوحة؛ يُستكمل توثيق المصدر وحقوق الاستعمال"
+ },
+ {
+  "slot": "login",
+  "file": "login.jpg",
+  "original": "al_mureijah_square_thumb_(1).jpg",
+  "used_for": "شاشة الدخول",
+  "kind": "photo",
+  "size": [
+   1000,
+   625
+  ],
+  "rights": "مقدَّمة من صاحب الإدارة لواجهة اللوحة؛ يُستكمل توثيق المصدر وحقوق الاستعمال"
+ },
+ {
+  "slot": "history",
+  "file": "history.jpg",
+  "original": "201922103017787JW.jpg",
+  "used_for": "مجال التاريخ والمجتمع",
+  "kind": "photo",
+  "size": [
+   750,
+   425
+  ],
+  "rights": "مقدَّمة من صاحب الإدارة لواجهة اللوحة؛ يُستكمل توثيق المصدر وحقوق الاستعمال"
+ },
+ {
+  "slot": "material",
+  "file": "material.jpg",
+  "original": "a01-21.jpg",
+  "used_for": "مجال التراث المادي",
+  "kind": "photo",
+  "size": [
+   456,
+   304
+  ],
+  "rights": "مقدَّمة من صاحب الإدارة لواجهة اللوحة؛ يُستكمل توثيق المصدر وحقوق الاستعمال"
+ },
+ {
+  "slot": "intangible",
+  "file": "intangible.jpg",
+  "original": "Sunlit Chest of Textiles and Books.png",
+  "used_for": "مجال التراث غير المادي",
+  "kind": "conceptual",
+  "size": [
+   1117,
+   1408
+  ],
+  "rights": "مقدَّمة من صاحب الإدارة لواجهة اللوحة؛ يُستكمل توثيق المصدر وحقوق الاستعمال"
+ },
+ {
+  "slot": "crafts",
+  "file": "crafts.jpg",
+  "original": "2485296.jpg",
+  "used_for": "مجال الحرف والاقتصاد التقليدي",
+  "kind": "photo",
+  "size": [
+   1000,
+   751
+  ],
+  "rights": "مقدَّمة من صاحب الإدارة لواجهة اللوحة؛ يُستكمل توثيق المصدر وحقوق الاستعمال"
+ },
+ {
+  "slot": "natural",
+  "file": "natural.jpg",
+  "original": "1644319.jpg",
+  "used_for": "مجال التراث الطبيعي والبيئي",
+  "kind": "photo",
+  "size": [
+   640,
+   406
+  ],
+  "rights": "مقدَّمة من صاحب الإدارة لواجهة اللوحة؛ يُستكمل توثيق المصدر وحقوق الاستعمال"
+ },
+ {
+  "slot": "legal",
+  "file": "legal.jpg",
+  "original": "Vintage Palace Courtyard Facade.png",
+  "used_for": "مجال التراث القانوني والمؤسسي",
+  "kind": "conceptual",
+  "size": [
+   1400,
+   933
+  ],
+  "rights": "مقدَّمة من صاحب الإدارة لواجهة اللوحة؛ يُستكمل توثيق المصدر وحقوق الاستعمال"
+ },
+ {
+  "slot": "coastal",
+  "file": "coastal.jpg",
+  "original": "12808x960.jpg",
+  "used_for": "النطاق الساحلي والبحري",
+  "kind": "photo",
+  "size": [
+   305,
+   280
+  ],
+  "rights": "مقدَّمة من صاحب الإدارة لواجهة اللوحة؛ يُستكمل توثيق المصدر وحقوق الاستعمال"
+ },
+ {
+  "slot": "desert",
+  "file": "desert.jpg",
+  "original": "im22ages.jpg",
+  "used_for": "النطاق الصحراوي والبدوي",
+  "kind": "photo",
+  "size": [
+   364,
+   549
+  ],
+  "rights": "مقدَّمة من صاحب الإدارة لواجهة اللوحة؛ يُستكمل توثيق المصدر وحقوق الاستعمال"
+ },
+ {
+  "slot": "oasis",
+  "file": "oasis.jpg",
+  "original": "imag3e.jpg",
+  "used_for": "نطاق الواحات والزراعة",
+  "kind": "photo",
+  "size": [
+   800,
+   500
+  ],
+  "rights": "مقدَّمة من صاحب الإدارة لواجهة اللوحة؛ يُستكمل توثيق المصدر وحقوق الاستعمال"
+ },
+ {
+  "slot": "mountain",
+  "file": "mountain.jpg",
+  "original": "4134742.jpg",
+  "used_for": "النطاق الجبلي",
+  "kind": "photo",
+  "size": [
+   1400,
+   934
+  ],
+  "rights": "مقدَّمة من صاحب الإدارة لواجهة اللوحة؛ يُستكمل توثيق المصدر وحقوق الاستعمال"
+ },
+ {
+  "slot": "urban",
+  "file": "urban.jpg",
+  "original": "al_mureijah_square_thumb.jpg",
+  "used_for": "نطاق الحواضر والأسواق",
+  "kind": "photo",
+  "size": [
+   1000,
+   625
+  ],
+  "rights": "مقدَّمة من صاحب الإدارة لواجهة اللوحة؛ يُستكمل توثيق المصدر وحقوق الاستعمال"
+ },
+ {
+  "slot": "contact",
+  "file": "contact.jpg",
+  "original": "صورة2.png",
+  "used_for": "نطاق التواصل التجاري والهجرات",
+  "kind": "photo",
+  "size": [
+   641,
+   437
+  ],
+  "rights": "مقدَّمة من صاحب الإدارة لواجهة اللوحة؛ يُستكمل توثيق المصدر وحقوق الاستعمال"
+ },
+ {
+  "slot": "lab",
+  "file": "lab.jpg",
+  "original": "4134742.jpg",
+  "used_for": "المختبر الشفهي",
+  "kind": "photo",
+  "size": [
+   1400,
+   934
+  ],
+  "rights": "مقدَّمة من صاحب الإدارة لواجهة اللوحة؛ يُستكمل توثيق المصدر وحقوق الاستعمال"
+ },
+ {
+  "slot": "evidence",
+  "file": "evidence.jpg",
+  "original": "ChatGPT Image Oct 15, 2026, 01_33_34 PM.png",
+  "used_for": "الأدلة والتثليث",
+  "kind": "conceptual",
+  "size": [
+   941,
+   1672
+  ],
+  "rights": "مقدَّمة من صاحب الإدارة لواجهة اللوحة؛ يُستكمل توثيق المصدر وحقوق الاستعمال"
+ },
+ {
+  "slot": "skills",
+  "file": "skills.jpg",
+  "original": "2169780.webp",
+  "used_for": "المهارات والأوامر",
+  "kind": "photo",
+  "size": [
+   1400,
+   1677
+  ],
+  "rights": "مقدَّمة من صاحب الإدارة لواجهة اللوحة؛ يُستكمل توثيق المصدر وحقوق الاستعمال"
+ },
+ {
+  "slot": "archive",
+  "file": "archive.jpg",
+  "original": "12800x960.jpg",
+  "used_for": "الخزنة والحالات الفارغة",
+  "kind": "photo",
+  "size": [
+   500,
+   400
+  ],
+  "rights": "مقدَّمة من صاحب الإدارة لواجهة اللوحة؛ يُستكمل توثيق المصدر وحقوق الاستعمال"
+ },
+ {
+  "slot": "aerial",
+  "file": "aerial.jpg",
+  "original": "ChatGPT Image Oct 15, 2026, 01_31_36 PM-2.png",
+  "used_for": "دليل البدء: المشروع",
+  "kind": "conceptual",
+  "size": [
+   941,
+   1672
+  ],
+  "rights": "مقدَّمة من صاحب الإدارة لواجهة اللوحة؛ يُستكمل توثيق المصدر وحقوق الاستعمال"
+ }
+]

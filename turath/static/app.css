@@ -55,8 +55,8 @@ main{padding:22px 26px 60px;max-width:1500px;width:100%;margin:0 auto}
 
 /* ---------- البطل */
 .hero{position:relative;border-radius:26px;overflow:hidden;min-height:300px;box-shadow:var(--shadow-lg);color:#fff;isolation:isolate;
-  background:var(--night) url(img/hero-coast.svg) center/cover no-repeat}
-.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(270deg,rgba(18,38,63,.92) 0%,rgba(18,38,63,.55) 45%,rgba(18,38,63,0) 80%);z-index:-1}
+  background:var(--night) url(img/photos/hero.jpg) center/cover no-repeat}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(270deg,rgba(18,38,63,.95) 0%,rgba(18,38,63,.8) 42%,rgba(18,38,63,.25) 78%,rgba(18,38,63,.05) 100%);z-index:-1}
 .hero .in{padding:38px 40px;max-width:640px}
 .hero .kicker{display:inline-flex;gap:8px;align-items:center;color:var(--gold-2);font-size:.9rem;letter-spacing:.4px}
 .hero h1{font-size:2.35rem;line-height:1.35;margin:.25em 0 .2em;text-shadow:0 2px 14px rgba(0,0,0,.35)}
@@ -237,7 +237,7 @@ pre.out{white-space:pre-wrap;background:var(--soft);border:1px solid var(--line)
 
 /* الدخول */
 .login{min-height:100vh;display:grid;grid-template-columns:1.2fr 1fr}
-.login .art{background:var(--night) url(img/hero-coast.svg) center/cover;position:relative}
+.login .art{background:var(--night) url(img/photos/login.jpg) center/cover;position:relative}
 .login .art::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(12,26,45,.85),rgba(12,26,45,0) 45%)}
 .login .art .cap{position:absolute;bottom:30px;inset-inline-start:30px;color:#fff;max-width:440px;z-index:1}
 .login label.stack{display:flex;flex-direction:column;gap:4px}
@@ -257,3 +257,8 @@ pre.out{white-space:pre-wrap;background:var(--soft);border:1px solid var(--line)
 }
 .menu-btn{display:none!important}
 @media print{.side,.top,.doclist,#pr,.sec{display:none!important}.app,.split{display:block}main{padding:0}.doc{box-shadow:none;border:0;max-width:none}body{background:#fff}}
+
+/* وسم الصور المولَّدة: لا تُقدَّم صورة تاريخية (القسم 13 من الاستدعاء) */
+.concept{position:absolute;top:10px;left:12px;z-index:3;background:rgba(10,20,35,.62);color:#fff;font-size:.72rem;line-height:1.6;
+  padding:1px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(3px);pointer-events:auto;white-space:nowrap}
+.domain{position:relative}

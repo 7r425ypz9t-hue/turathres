@@ -24,9 +24,13 @@ const NAV = [
   { id: "docs", label: "الوثائق والاستمارات", icon: "book", c: C.night },
   { id: "settings", label: "الإعدادات والتشغيل", icon: "settings", c: "#56657A" },
 ];
-const DOMAIN_ART = { history_society: "scene-souq", material: "scene-fort", intangible: "scene-oral", crafts_economy: "scene-craft", natural: "scene-oasis", legal: "scene-archive" };
+const DOMAIN_ART = { history_society: "history", material: "material", intangible: "intangible", crafts_economy: "crafts", natural: "natural", legal: "legal" };
+// صور الواجهة من مجموعة صاحب الإدارة؛ وما كان منها مولَّداً يوسم «إعادة بناء تصورية» ولا يُقدَّم صورة تاريخية
+const PH = (k) => `img/photos/${k}.jpg`;
+const CONCEPT = new Set(["hero", "intangible", "legal", "evidence", "aerial"]);
+const cx = (k) => (CONCEPT.has(k) ? `<span class="concept" title="صورة مولَّدة لا وثيقة تاريخية">إعادة بناء تصورية</span>` : "");
 const DOMAIN_COLOR = { history_society: C.clay, material: C.gold, intangible: C.teal, crafts_economy: C.brown, natural: C.palm, legal: C.plum };
-const REGION_ART = { coastal: "scene-sea", desert: "scene-desert", oasis: "scene-oasis", mountain: "scene-mountain", urban: "scene-fort", contact: "scene-souq" };
+const REGION_ART = { coastal: "coastal", desert: "desert", oasis: "oasis", mountain: "mountain", urban: "urban", contact: "contact" };
 const STAGE_COLORS = [C.blue, C.blue, C.blue, C.clay, C.clay, C.crimson, C.palm, C.teal, C.crimson, C.sky, C.gold, C.plum, C.plum, C.night, C.gold, C.brown];
 
 const L = {
@@ -207,7 +211,7 @@ function pipeline(counts, current) {
 function projectCard(p) {
   const i = stageIdx(p.stage), c = DOMAIN_COLOR[p.domain] || C.blue;
   return `<div class="card click" style="--c:${c};padding:0" data-go="project/${esc(p.id)}">
-    <div style="height:110px;background:url(img/${DOMAIN_ART[p.domain] || "scene-archive"}.svg) center/cover"></div>
+    <div style="height:110px;position:relative;background:url(${PH(DOMAIN_ART[p.domain] || "history")}) center/cover">${cx(DOMAIN_ART[p.domain] || "history")}</div>
     <div style="padding:14px 16px"><div class="spread"><span class="tiny muted" dir="ltr">${esc(p.id)}</span>${badge(lab(p.domain), c)}</div>
     <h3 style="margin-top:6px">${esc(p.title)}</h3>
     <div class="spread small"><span>${esc(p.stage)} · ${esc(stageLabel(p.stage))}</span><span class="muted">${i + 1}/16</span></div>
@@ -226,7 +230,7 @@ async function home(main) {
   const regionsOn = new Set(k.regions);
   const engines = Object.entries(S.info.engines).map(([n, e]) => `<li>${e.available ? "✅" : "⏳"} ${esc(e.label)}</li>`).join("");
   main.innerHTML = `
-  <section class="hero"><div class="in">
+  <section class="hero">${cx("hero")}<div class="in">
     <div class="kicker">${ic("pearl")} مرجعية رقمية متخصصة في تراث الإمارات</div>
     <h1>إدارة الدراسات والبحوث<br>التراثية الإماراتية</h1>
     <p>مؤسسة معرفية رقمية للبحث والتحقيق والجمع الميداني والتوثيق والتحليل والنشر؛ تحفظ الأدلة الأولية وتربطها بالاستنتاجات العلمية، بانضباط صفر تلفيق.</p>
@@ -254,19 +258,19 @@ async function home(main) {
 
   ${sec("المجالات البحثية الإلزامية", "layers", C.clay)}
   <div class="grid" style="--min:300px">${Object.entries(S.info.domains).map(([key, label]) => `
-    <div class="card click domain" style="background-image:url(img/${DOMAIN_ART[key]}.svg)" data-go="projects"><div class="shade">
+    <div class="card click domain" style="background-image:url(${PH(DOMAIN_ART[key])})" data-go="projects">${cx(DOMAIN_ART[key])}<div class="shade">
       <h3>${esc(label)}</h3><span class="cnt">${domCount[key] || 0} مشروع</span></div></div>`).join("")}</div>
 
   ${sec("الخصوصية الإماراتية: النطاقات الجغرافية الثقافية", "map", C.teal, `<span class="chip blue">الممثَّل: ${regionsOn.size}/6</span>`)}
   <div class="grid" style="--min:170px">${Object.entries(S.info.regions).map(([key, label]) => `
     <div class="card" style="padding:0;${regionsOn.has(label) ? "outline:3px solid var(--gold)" : "filter:saturate(.75)"}">
-      <div style="height:96px;background:url(img/${REGION_ART[key]}.svg) center/cover"></div>
+      <div style="height:96px;background:url(${PH(REGION_ART[key])}) center/cover"></div>
       <div style="padding:10px 12px" class="small"><b>${esc(label)}</b><br><span class="muted tiny">${regionsOn.has(label) ? "ممثَّل في البحوث" : "غير ممثَّل بعد"}</span></div></div>`).join("")}</div>
   <p class="muted small">عناية خاصة بالشارقة ومدنها ومناطقها: الذيد، وكلباء، وخورفكان، ودبا الحصن، ومليحة — دون تعميم خصائص منطقة على المجتمع الإماراتي كله.</p>
 
   <div class="grid" style="--min:420px;margin-top:10px">
     <div>${sec("المشاريع الجارية", "folder", C.gold)}<div class="grid" style="--min:260px">${d.projects.slice(0, 4).map(projectCard).join("") ||
-      `<div class="card empty"><img src="img/scene-archive.svg" alt=""><p>لا مشاريع بعد. ابدأ بمشروع جديد أو استورد النموذج التطبيقي.</p></div>`}</div></div>
+      `<div class="card empty"><img src="${PH("archive")}" alt=""><p>لا مشاريع بعد. ابدأ بمشروع جديد أو استورد النموذج التطبيقي.</p></div>`}</div></div>
     <div>${sec("آخر النشاط", "clock", C.night)}<div class="card"><ul class="timeline">${d.recent.map((r) => `<li><span class="dt">${fmtDate(r.at)}</span>
       <span>${esc(actionLabel(r.action))} · <b>${esc(S.schema[r.item_table]?.one || r.item_table)}</b> <span class="tiny muted" dir="ltr">${esc(r.item_id)}</span></span></li>`).join("") || `<li class="muted">لا نشاط بعد</li>`}</ul></div></div>
   </div>
@@ -362,7 +366,7 @@ function rowsTable(table, R, cols) {
   const sc = S.schema[table];
   cols = cols || sc.fields.slice(0, 4).map((f) => f.name);
   const lbl = Object.fromEntries(sc.fields.map((f) => [f.name, f.label]));
-  if (!R.length) return `<div class="card empty"><img src="img/scene-archive.svg" alt=""><p>لا سجلات في «${esc(sc.label)}» بعد.</p></div>`;
+  if (!R.length) return `<div class="card empty"><img src="${PH("archive")}" alt=""><p>لا سجلات في «${esc(sc.label)}» بعد.</p></div>`;
   return `<div class="table-wrap"><table><thead><tr><th>المعرّف</th>${cols.map((c) => `<th>${esc(lbl[c] || c)}</th>`).join("")}<th>الإتاحة</th></tr></thead><tbody>
     ${R.map((r) => `<tr class="click" data-row="${esc(r.id)}"><td class="tiny" dir="ltr">${esc(r.id)}</td>${cols.map((c) => {
       const v = r[c]; const f = sc.fields.find((x) => x.name === c);
@@ -383,7 +387,7 @@ function bindRows(el, table, R, after) {
 async function projects(main) {
   const P = await api("rows/projects");
   main.innerHTML = `${sec("المشاريع البحثية", "folder", C.gold, `<button class="btn gold" id="np">${ic("plus")} مشروع جديد</button>`)}
-    <div class="grid" style="--min:280px">${P.map(projectCard).join("") || `<div class="card empty"><img src="img/scene-oral.svg" alt=""><p>لا مشاريع بعد.</p>
+    <div class="grid" style="--min:280px">${P.map(projectCard).join("") || `<div class="card empty"><img src="${PH("urban")}" alt=""><p>لا مشاريع بعد.</p>
       <button class="btn gold" id="pilot">${ic("star")} استورد النموذج التطبيقي: التلي</button></div>`}</div>`;
   bindGo(main);
   $("#np").onclick = newProject;
@@ -397,7 +401,7 @@ async function project(main, pid, tab) {
   const tables = Object.keys(S.schema).filter((t) => t !== "projects");
   tab = tab || "claims";
   main.innerHTML = `
-  <section class="hero" style="min-height:230px;background-image:url(img/${DOMAIN_ART[p.domain] || "scene-archive"}.svg)"><div class="in">
+  <section class="hero" style="min-height:230px;background-image:url(${PH(DOMAIN_ART[p.domain] || "history")})">${cx(DOMAIN_ART[p.domain] || "history")}<div class="in">
     <div class="kicker">${ic("folder")} <span dir="ltr">${esc(p.id)}</span> · ${esc(lab(p.domain))} ${p.emirate ? "· " + esc(lab(p.emirate)) : ""}</div>
     <h1 style="font-size:1.9rem">${esc(p.title)}</h1><p>${esc(p.question || "لم يُصغ السؤال البحثي بعد")}</p>
     <div class="acts"><button class="btn gold" id="edit">${ic("feather")} تحرير البيانات</button>
@@ -483,7 +487,7 @@ async function vault(main) {
   <div class="grid" style="--min:220px">${statCard("أصل محفوظ", A.length, "archive", C.brown)}${statCard("ميغابايت", (size / 1048576).toFixed(1), "database", C.clay)}
     ${statCard("سليم البصمة", A.filter((a) => a.integrity === "ok").length, "shield", C.palm)}${statCard("معروف المصدر والحقوق", A.filter((a) => a.provenance && a.rights).length, "handshake", C.gold)}</div>
   <div class="card" style="margin-top:16px"><div class="accent" style="--c:${C.gold}"></div>
-    <div class="drop" id="drop"><img src="img/scene-archive.svg" alt="" style="width:180px;border-radius:14px"><h3>اسحب الملفات هنا أو اخترها</h3>
+    <div class="drop" id="drop"><img src="${PH("archive")}" alt="" style="width:180px;border-radius:14px"><h3>اسحب الملفات هنا أو اخترها</h3>
     <p class="muted small">MP3 · WAV · FLAC · MP4 · MOV · صور · وثائق ممسوحة · نصوص. تُحسب بصمة SHA-256، وتُحفظ النسخة الأصلية للقراءة فقط ولا تُعدَّل أبداً.</p>
     <input type="file" id="files" multiple></div>
     <form class="form" id="meta" style="margin-top:14px"><label>المشروع<select name="project"><option value="">— دون مشروع —</option>${P.map((p) => `<option value="${esc(p.id)}">${esc(p.id)} — ${esc(p.title)}</option>`).join("")}</select></label>
@@ -493,7 +497,7 @@ async function vault(main) {
       <label>مستوى الإتاحة<select name="access"><option value="private">خاص</option><option value="project">ضمن المشروع</option><option value="shared">مشارَك</option></select></label></form></div>
   ${sec("المسار الوثائقي: الصور", "camera", C.sky)}
   ${imgs.length ? `<div class="gallery">${imgs.map((a) => `<div class="thumb"><img loading="lazy" src="${fileUrl(a.id)}" alt="${esc(a.filename)}"><span class="tag">${badge(a.integrity === "ok" ? "سليم" : a.integrity, STATUS_C[a.integrity])} ${hasGps(a) ? badge("يحمل موقعاً", C.crimson) : ""}</span><div class="cap">${esc(a.filename)}</div></div>`).join("")}</div>`
-    : `<div class="card empty"><img src="img/scene-fort.svg" alt=""><p>لا صور بعد. الصور المودعة هنا تدخل المسار الوثائقي بعد توثيق مصدرها؛ والرسوم في هذه اللوحة زخرفية لا دليل تاريخي.</p></div>`}
+    : `<div class="card empty"><img src="${PH("material")}" alt=""><p>لا صور بعد. الصور المودعة هنا تدخل المسار الوثائقي بعد توثيق مصدرها؛ أما صور الواجهة فللزينة لا دليلاً تاريخياً.</p></div>`}
   ${sec("الملفات الصوتية والمرئية والوثائق", "wave", C.teal)}
   ${other.length ? `<div class="table-wrap"><table><thead><tr><th>المعرّف</th><th>الملف</th><th>النوع</th><th>الحجم</th><th>البصمة</th><th>المصدر</th><th>السلامة</th><th></th></tr></thead><tbody>
     ${other.map((a) => `<tr><td class="tiny" dir="ltr">${esc(a.id)}</td><td>${esc(a.filename)}</td><td>${esc(a.kind)}</td><td>${((a.size || 0) / 1024).toFixed(0)} ك.ب</td>
@@ -525,17 +529,17 @@ const hasGps = (a) => { try { return !!JSON.parse(a.technical || "{}").gps; } ca
 
 /* ------------------------------------------------------------ دليل البدء */
 const TOUR = [
-  ["hero-coast", "مرحباً بكم في «تراث»", "إدارة بحثية رقمية لتراث الإمارات: أرشيف يحفظ الأدلة الأولية، ويربط كل استنتاج علمي بأصله، بانضباط صفر تلفيق. هذه جولة من خمس خطوات."],
-  ["scene-archive", "١. المشروع أولاً", "كل بحث مشروع يمر بست عشرة مرحلة، من الفكرة إلى النشر. وعند كل انتقال بوابة جودة تُحسب فحوصها من البيانات، فلا يتقدم المشروع قبل استيفائها."],
-  ["scene-fort", "٢. الخزنة", "أودعوا التسجيلات والصور والوثائق بالسحب والإفلات، مع مصدرها وحقوقها. يُحفظ الأصل ببصمة رقمية للقراءة فقط، ويُكشف أي عبث به."],
-  ["scene-oral", "٣. المختبر الشفهي", "فرّغوا المقابلة حرفياً بطوابع زمنية، واللفظ المحلي كما نطقه الراوي. وما لم يُفهم يُعلَّم «[غير مفهوم]» دون تخمين، ثم يراجعه متحدث محلي مؤهل."],
-  ["scene-souq", "٤. الأدلة والتثليث", "كل ادعاء يُربط بأدلته. والشهادات المنقولة عن أصل واحد تُعدّ شهادة واحدة، ولا يُثبت ادعاء بالصحافة وحدها، وكل تعارض يُحفظ في سجله."],
-  ["scene-craft", "٥. الوكلاء والمهارات", "أربعة عشر أمراً، مثل «فرغ مقابلة» و«حقق رواية»، يُكلَّف بها الوكيل المختص. والاعتماد النهائي لكم وحدكم. ابدؤوا بالنموذج التطبيقي «التلي» لتروا المنظومة تعمل."],
+  ["hero", "مرحباً بكم في «تراث»", "إدارة بحثية رقمية لتراث الإمارات: أرشيف يحفظ الأدلة الأولية، ويربط كل استنتاج علمي بأصله، بانضباط صفر تلفيق. هذه جولة من خمس خطوات."],
+  ["aerial", "١. المشروع أولاً", "كل بحث مشروع يمر بست عشرة مرحلة، من الفكرة إلى النشر. وعند كل انتقال بوابة جودة تُحسب فحوصها من البيانات، فلا يتقدم المشروع قبل استيفائها."],
+  ["archive", "٢. الخزنة", "أودعوا التسجيلات والصور والوثائق بالسحب والإفلات، مع مصدرها وحقوقها. يُحفظ الأصل ببصمة رقمية للقراءة فقط، ويُكشف أي عبث به."],
+  ["lab", "٣. المختبر الشفهي", "فرّغوا المقابلة حرفياً بطوابع زمنية، واللفظ المحلي كما نطقه الراوي. وما لم يُفهم يُعلَّم «[غير مفهوم]» دون تخمين، ثم يراجعه متحدث محلي مؤهل."],
+  ["evidence", "٤. الأدلة والتثليث", "كل ادعاء يُربط بأدلته. والشهادات المنقولة عن أصل واحد تُعدّ شهادة واحدة، ولا يُثبت ادعاء بالصحافة وحدها، وكل تعارض يُحفظ في سجله."],
+  ["skills", "٥. الوكلاء والمهارات", "أربعة عشر أمراً، مثل «فرغ مقابلة» و«حقق رواية»، يُكلَّف بها الوكيل المختص. والاعتماد النهائي لكم وحدكم. ابدؤوا بالنموذج التطبيقي «التلي» لتروا المنظومة تعمل."],
 ];
 function showTour(i = 0) {
   const [img, title, text] = TOUR[i];
   const last = i === TOUR.length - 1;
-  const body = modal(title, `<div style="height:220px;border-radius:16px;background:url(img/${img}.svg) center/cover;margin-bottom:14px"></div>
+  const body = modal(title, `<div style="height:220px;border-radius:16px;position:relative;overflow:hidden;background:url(${PH(img)}) center/cover;margin-bottom:14px">${cx(img)}</div>
     <p style="font-size:1.08rem">${esc(text)}</p>
     <div class="row" style="justify-content:space-between;margin-top:14px"><span class="muted small">${i + 1} / ${TOUR.length}</span>
     <div class="row">${i ? `<button class="btn ghost" id="tp">السابق</button>` : ""}
@@ -553,7 +557,7 @@ function hl(t) { return esc(t).replace(/\[غير مفهوم\]|\[؟\]/g, (m) => `
 async function labView(main, iid) {
   const IV = await api("rows/interviews");
   if (!iid) {
-    main.innerHTML = `<section class="hero" style="min-height:240px;background-image:url(img/scene-oral.svg)"><div class="in">
+    main.innerHTML = `<section class="hero" style="min-height:240px;background-image:url(${PH("lab")})"><div class="in">
       <div class="kicker">${ic("ear")} المختبر السمعي واللغوي للتاريخ الشفهي</div><h1 style="font-size:1.9rem">الكلمة كما نطقها الراوي</h1>
       <p>دورة معالجة من اثنتي عشرة خطوة لكل تسجيل: من البصمة والنسخة الأصلية إلى التفريغ الحرفي والمراجعة البشرية مع متحدث محلي مؤهل.</p>
       <div class="acts"><button class="btn gold" id="ni">${ic("plus")} مقابلة جديدة</button><button class="btn glass" data-go="vault">${ic("upload")} إيداع تسجيل</button><button class="btn glass" data-go="archive/dialect_lexicon">${ic("ear")} المعجم اللهجي</button></div></div><div class="sadu"></div></section>
@@ -606,7 +610,7 @@ async function evidence(main, tab = "claims") {
   const [CL, CF] = await Promise.all([api("rows/claims"), api("rows/conflicts")]);
   const by = {};
   CL.forEach((c) => (by[c.status] = (by[c.status] || 0) + 1));
-  main.innerHTML = `<section class="hero" style="min-height:220px;background-image:url(img/scene-archive.svg)"><div class="in">
+  main.innerHTML = `<section class="hero" style="min-height:220px;background-image:url(${PH("evidence")})">${cx("evidence")}<div class="in">
     <div class="kicker">${ic("shield")} هرم المصادر والتثليث المنهجي</div><h1 style="font-size:1.9rem">لا ادعاء بلا دليل</h1>
     <p>عدد الرواة وحده لا يثبت الواقعة: تُعدّ الأصول المستقلة وأصناف الأدلة الستة، ويُحفظ كل تعارض بأسانيده دون حذف أو تسوية مصطنعة.</p>
     <div class="acts"><button class="btn gold" id="nc">${ic("plus")} ادعاء جديد</button><button class="btn glass" id="nf">${ic("alert")} تعارض جديد</button></div></div><div class="sadu"></div></section>
@@ -733,7 +737,7 @@ const skillsList = async () => S.cache.skills || (S.cache.skills = await api("sk
 async function skillsView(main) {
   const SK = await skillsList();
   const A = S.cache.agents || (S.cache.agents = await api("agents"));
-  main.innerHTML = `<section class="hero" style="min-height:220px;background-image:url(img/scene-craft.svg)"><div class="in">
+  main.innerHTML = `<section class="hero" style="min-height:220px;background-image:url(${PH("skills")})"><div class="in">
     <div class="kicker">${ic("star")} أربع عشرة مهارة قابلة للاستدعاء</div><h1 style="font-size:1.9rem">الأوامر المؤسسية</h1>
     <p>كل أمر يستدعي وكيله القائد بإجراءات ومخرجات إلزامية. وهي متاحة أيضاً مهاراتٍ في Claude Code داخل هذا المستودع (.claude/skills).</p></div><div class="sadu"></div></section>
   <div class="grid" style="--min:280px;margin-top:18px">${SK.map((s) => `<div class="card click skill" data-sk="${s.id}" style="--c:${s.color}">
@@ -831,9 +835,17 @@ async function settings(main) {
     <label>اسم المستخدم<input name="username" required></label><label>الاسم الظاهر<input name="display_name"></label><label>كلمة المرور<input name="password" type="password" minlength="8" required></label>
     <label>الصفة<select name="role">${Object.entries(S.info.roles).map(([k, l]) => `<option value="${k}" ${k === "researcher" ? "selected" : ""}>${esc(l)}</option>`).join("")}</select></label>
     <div><button class="btn">${ic("check")} إنشاء</button></div></form></div>` : ""}
+  ${sec("صور الواجهة ومصادرها", "camera", C.sky)}<div id="credits" class="table-wrap"></div>
+  <p class="tiny muted">صور الواجهة للزينة لا دليلاً تاريخياً. والمولَّد منها موسوم «إعادة بناء تصورية» حيثما ظهر.</p>
   ${sec("الحماية والاستمرارية", "shield", C.palm)}<div class="row"><button class="btn ghost" data-go="vault">${ic("shield")} فحص السلامة والنسخ الاحتياطي</button>
     <button class="btn ghost" id="tour">${ic("compass")} دليل البدء</button></div>`;
   $("#tour").onclick = () => showTour(0);
+  fetch("img/photos/credits.json").then((r) => r.json()).then((L) => {
+    $("#credits").innerHTML = `<table><thead><tr><th>الصورة</th><th>موضعها</th><th>النوع</th><th>الملف الأصلي</th><th>الحقوق</th></tr></thead><tbody>${L.map((c) => `<tr>
+      <td><img src="img/photos/${esc(c.file)}" alt="" style="width:96px;height:60px;object-fit:cover;border-radius:8px"></td><td>${esc(c.used_for)}</td>
+      <td>${c.kind === "conceptual" ? badge("إعادة بناء تصورية", C.crimson) : badge("صورة فوتوغرافية", C.palm)}</td>
+      <td class="tiny" dir="ltr">${esc(c.original)}</td><td class="small muted">${esc(c.rights)}</td></tr>`).join("")}</tbody></table>`;
+  }).catch(() => {});
   bindGo(main);
   if (canAdmin) $("#eng").onsubmit = async (e) => { e.preventDefault(); const r = await run(() => api("settings", { method: "POST", body: formData(e.target) }), "حُفظ"); if (r) { S.info = r; shell(); route(); } };
   if ($("#uf")) $("#uf").onsubmit = async (e) => { e.preventDefault(); if (await run(() => api("users", { method: "POST", body: formData(e.target) }), "أُنشئ الحساب")) settings(main); };
