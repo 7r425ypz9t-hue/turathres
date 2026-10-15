@@ -13,7 +13,7 @@
 
 انظر **[INSTALL.md](INSTALL.md)**. التنصيب سطر واحد يُلصق في PowerShell على ويندوز أو في Terminal على ماك. ينزّل البرنامج، ويثبّت Python إن لزم، ويضع أيقونة «تراث» على سطح المكتب، ويفتح اللوحة.
 
-**دليل مصوَّر:** [`docs/guide/تراث-دليل-المنصة.pptx`](docs/guide/تراث-دليل-المنصة.pptx) — عرض من ثلاثين شريحة يشرح المنصة وشاشاتها وطريقة استخدامها.
+**دليل مصوَّر:** [`docs/guide/turath-guide.pptx`](docs/guide/turath-guide.pptx) — عرض من ثلاثين شريحة يشرح المنصة وشاشاتها وطريقة استخدامها. [تنزيل مباشر](https://github.com/7r425ypz9t-hue/turathres/raw/refs/heads/claude/clever-carson-78yimu/docs/guide/turath-guide.pptx)
 
 ## التشغيل في دقيقة (للمطورين)
 
