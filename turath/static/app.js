@@ -872,12 +872,17 @@ async function settings(main) {
       <div><h3 style="margin:0">${st.custom ? "الأيقونة التي اعتمدتموها" : "الأيقونة المضمَّنة في البرنامج"}</h3>
       <p class="tiny muted" style="margin:.4em 0">تظهر على سطح المكتب وفي قائمة البرامج وفي هذه اللوحة. ويُفضَّل ملف PNG مربع بمقاس 512 بكسل فأكثر.
       ${st.custom ? `<br>محفوظة في <span dir="ltr">${esc(st.folder)}</span> فتبقى بعد التحديثات.` : ""}</p></div></div>
-      ${canAdmin && st.local ? `<label class="btn gold" style="cursor:pointer">${ic("upload")} اعتماد صورة أيقونة<input type="file" id="iconfile" accept=".png,.jpg,.jpeg,.webp" hidden></label>` : ""}</div>`;
+      ${canAdmin && st.local ? `<div class="row" style="flex-direction:column;align-items:stretch"><label class="btn gold" style="cursor:pointer">${ic("upload")} اعتماد صورة أيقونة<input type="file" id="iconfile" accept=".png,.jpg,.jpeg,.webp" hidden></label>
+        <button class="btn ghost" id="iconrefresh">${ic("check")} تحديث أيقونة سطح المكتب</button></div>` : ""}</div>`;
     if ($("#iconfile")) $("#iconfile").onchange = async (e) => {
       const file = e.target.files[0];
-      const r = file && await run(() => api("icon", { method: "POST", raw: true, body: file }), "اعتُمدت الأيقونة وحُدّث اختصار سطح المكتب");
-      if (r) location.reload();
+      const r = file && await run(() => api("icon", { method: "POST", raw: true, body: file }));
+      if (!r) return;
+      if (r.warning) { toast("اعتُمدت الأيقونة في اللوحة، وتعذّر تحديث اختصار سطح المكتب: " + r.warning, "bad"); return loadIcon(); }
+      toast("اعتُمدت الأيقونة وحُدّث اختصار سطح المكتب"); setTimeout(() => location.reload(), 900);
     };
+    if ($("#iconrefresh")) $("#iconrefresh").onclick = () => run(() => api("icon/refresh", { method: "POST" }),
+      "حُدّث اختصار سطح المكتب. إن بقي الرسم القديم فأعيدوا تسجيل الدخول إلى ويندوز مرة.");
   };
   loadIcon().catch(() => {});
   fetch("img/photos/credits.json").then((r) => r.json()).then((L) => {

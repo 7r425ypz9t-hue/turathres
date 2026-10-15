@@ -265,6 +265,14 @@ class Handler(BaseHTTPRequestHandler):
                 return self._json({"installed": w} | FN.status() | {"system": FN.system_status()})
             return self._json(FN.status() | {"system": FN.system_status(), "local": CFG.mode == "solo"})
         if head == "icon":
+            if method == "POST" and seg[1:2] == ["refresh"]:
+                if CFG.mode != "solo" or user["role"] not in ("admin", "director"):
+                    raise db.Denied("تحديث الأيقونة للمدير على جهازه (النمط الفردي)")
+                from .desktop import install_icon
+                try:
+                    return self._json({"shortcuts": [str(p) for p in install_icon()]})
+                except Exception as e:
+                    raise ApiError(f"تعذّر تحديث اختصار سطح المكتب: {e}")
             if method == "POST":
                 if CFG.mode != "solo" or user["role"] not in ("admin", "director"):
                     raise db.Denied("اعتماد الأيقونة للمدير على جهازه (النمط الفردي)")

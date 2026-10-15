@@ -376,6 +376,26 @@ class TestAppIcon(Base):
         appicon.reset()
         self.assertFalse(appicon.custom())
 
+    def test_shortcut_icon_path_changes_with_content(self):
+        from turath import appicon
+        dest = Path(self.tmp.name) / "sc"
+        a = appicon.stamped("ico", dest, "turath-shortcut")
+        self.assertEqual(a, appicon.stamped("ico", dest, "turath-shortcut"))
+        appicon.adopt(_png(300))
+        b = appicon.stamped("ico", dest, "turath-shortcut")
+        self.assertNotEqual(a, b)                 # مسار جديد يُجبر ويندوز على رسم جديد
+        self.assertFalse(a.exists())
+
+    def test_png_icon_without_pillow_gets_all_sizes(self):
+        import struct
+        from unittest import mock
+        from turath import appicon
+        with mock.patch.dict(sys.modules, {"PIL": None}):
+            appicon.adopt(_png(600))
+        ico = appicon.paths()["ico"].read_bytes()
+        n = struct.unpack("<H", ico[4:6])[0]
+        self.assertEqual(sorted(ico[6 + 16 * i] or 256 for i in range(n)), [16, 24, 32, 48, 64, 128, 256])
+
 
 class TestServer(Base):
     def setUp(self):

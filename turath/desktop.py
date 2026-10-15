@@ -126,7 +126,7 @@ def _windows(remove: bool) -> list[Path]:
         ps = (f"$s=(New-Object -ComObject WScript.Shell).CreateShortcut({_ps_quote(str(lnk))});"
               f"$s.TargetPath={_ps_quote(_pythonw())};$s.Arguments='-m turath.launch';"
               f"$s.WorkingDirectory={_ps_quote(str(APP_DIR))};"
-              f"$s.IconLocation={_ps_quote(str(appicon.paths()['ico']))};"
+              f"$s.IconLocation={_ps_quote(str(appicon.stamped('ico', appicon.folder(), 'turath-shortcut')))};"
               f"$s.Description='إدارة الدراسات والبحوث التراثية الإماراتية';$s.Save()")
         subprocess.run(["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", ps], check=True,
                        timeout=60, creationflags=NO_WINDOW)
@@ -134,7 +134,8 @@ def _windows(remove: bool) -> list[Path]:
     if done and not remove:
         # تحديث ذاكرة الأيقونات في ويندوز حتى تظهر الأيقونة المعتمدة فوراً؛ وإن تعذّر فبعد إعادة الدخول
         try:
-            subprocess.run(["ie4uinit.exe", "-show"], timeout=30, creationflags=NO_WINDOW)
+            for flag in ("-show", "-ClearIconCache"):   # ويندوز 10 و11، ثم 7 و8
+                subprocess.run(["ie4uinit.exe", flag], timeout=30, capture_output=True, creationflags=NO_WINDOW)
         except (OSError, subprocess.SubprocessError):
             pass
     return done
@@ -155,15 +156,15 @@ def _mac(remove: bool) -> list[Path]:
         run = macos / "turath"
         run.write_text(f'#!/bin/bash\ncd "{APP_DIR}"\nexec "{sys.executable}" -m turath.launch\n', encoding="utf-8")
         run.chmod(0o755)
-        icns = appicon.paths()["icns"]
-        if icns.exists():
-            shutil.copy(icns, res / "turath.icns")
+        for o in res.glob("turath*.icns"):
+            o.unlink()
+        icns = appicon.stamped("icns", res, "turath")
         (app / "Contents" / "Info.plist").write_text(
             '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" '
             '"http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n<plist version="1.0"><dict>'
             f"<key>CFBundleName</key><string>{NAME}</string><key>CFBundleDisplayName</key><string>{NAME}</string>"
             "<key>CFBundleIdentifier</key><string>ae.turath.app</string><key>CFBundleExecutable</key><string>turath</string>"
-            "<key>CFBundleIconFile</key><string>turath</string><key>CFBundlePackageType</key><string>APPL</string>"
+            f"<key>CFBundleIconFile</key><string>{icns.stem}</string><key>CFBundlePackageType</key><string>APPL</string>"
             "<key>CFBundleShortVersionString</key><string>1.0</string><key>LSUIElement</key><true/></dict></plist>\n",
             encoding="utf-8")
         os.utime(app)   # يحمل Finder على قراءة الأيقونة من جديد
@@ -173,7 +174,7 @@ def _mac(remove: bool) -> list[Path]:
 
 def _linux(remove: bool) -> list[Path]:
     entry = (f"[Desktop Entry]\nName={NAME}\nComment=إدارة الدراسات والبحوث التراثية الإماراتية\n"
-             f"Exec={sys.executable} -m turath.launch\nPath={APP_DIR}\nIcon={appicon.paths()['png']}\n"
+             f"Exec={sys.executable} -m turath.launch\nPath={APP_DIR}\nIcon={appicon.stamped('png', appicon.folder(), 'turath-shortcut')}\n"
              "Terminal=false\nType=Application\nCategories=Education;Office;\n")
     done = []
     for p in (_desktop_dir() / "turath.desktop", Path.home() / ".local" / "share" / "applications" / "turath.desktop"):
