@@ -278,12 +278,19 @@ class TestDesktop(unittest.TestCase):
                 self.assertTrue(all(p.exists() for p in made))
                 text = made[0].read_text(encoding="utf-8")
                 self.assertIn("Name=تراث", text)
-                self.assertIn("-m turath serve", text)
+                self.assertIn("-m turath.launch", text)
                 gone = desktop.install_icon(remove=True)
                 self.assertEqual(len(gone), len(made))
                 self.assertFalse(any(p.exists() for p in made))
             finally:
                 os.environ["HOME"] = old or ""
+
+    def test_cli_survives_non_arabic_console_encoding(self):
+        import subprocess
+        with tempfile.TemporaryDirectory() as h:
+            env = dict(os.environ, TURATH_HOME=h, PYTHONIOENCODING="cp1252")
+            r = subprocess.run([sys.executable, "-m", "turath", "setup", "solo"], cwd=ROOT, env=env, capture_output=True)
+            self.assertEqual(r.returncode, 0, r.stderr.decode(errors="replace"))
 
     def test_running_detects_nothing_on_free_port(self):
         from turath import desktop

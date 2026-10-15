@@ -3,6 +3,7 @@
 # من الإنترنت (في الطرفية):
 #   curl -fsSL https://raw.githubusercontent.com/7r425ypz9t-hue/turathres/refs/heads/claude/clever-carson-78yimu/launchers/install_unix.sh | bash
 set -euo pipefail
+export PYTHONUTF8=1 PYTHONIOENCODING=utf-8
 ZIP="https://github.com/7r425ypz9t-hue/turathres/archive/refs/heads/claude/clever-carson-78yimu.zip"
 if [ "$(uname)" = "Darwin" ]; then ROOT="$HOME/Library/Application Support/Turath"; else ROOT="$HOME/.local/share/turath"; fi
 APP="$ROOT/app"
@@ -51,5 +52,12 @@ say "إنشاء الأيقونة على سطح المكتب…"
 "$PY" -m turath install-icon
 
 say "فتح لوحة التحكم…"
-nohup "$PY" -m turath serve >/dev/null 2>&1 &
-echo; echo "  ✔ اكتمل التثبيت. من الآن: انقروا أيقونة «تراث» على سطح المكتب."; echo "  البيانات: $HOME/Turath"; echo
+nohup "$PY" -m turath.launch >/dev/null 2>&1 &
+UP=0
+for i in $(seq 1 30); do sleep 0.5
+  PORT="$("$PY" -c 'import json,os;print(json.load(open(os.path.expanduser("~/Turath/turath.json"))).get("port",8765))' 2>/dev/null || echo 8765)"
+  curl -fs "http://127.0.0.1:$PORT/api/public" >/dev/null 2>&1 && { UP=1; break; }; done
+if [ "$UP" != 1 ]; then
+  echo; echo "  ✖ لم تبدأ اللوحة. هذا تقرير التشخيص — أرسلوه كما هو:"; "$PY" -m turath doctor || true; exit 1
+fi
+echo; echo "  ✔ اكتمل التثبيت، واللوحة تعمل. من الآن: انقروا أيقونة «تراث» على سطح المكتب."; echo "  البيانات: $HOME/Turath"; echo

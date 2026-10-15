@@ -4,6 +4,7 @@
 # أو بالنقر المزدوج على launchers\turath_windows.bat داخل نسخة محلية من المستودع.
 param([string]$Source = "")
 $ErrorActionPreference = "Stop"
+$env:PYTHONUTF8 = "1"; $env:PYTHONIOENCODING = "utf-8"
 $ProgressPreference = "SilentlyContinue"
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 $Zip  = "https://github.com/7r425ypz9t-hue/turathres/archive/refs/heads/claude/clever-carson-78yimu.zip"
@@ -23,7 +24,7 @@ function Run-Native([scriptblock]$Block) {
 function Stop-Turath {
     # إيقاف لوحة قائمة من تثبيت سابق: لا يُحذف مجلد يعمل منه برنامج في ويندوز
     Get-CimInstance Win32_Process -Filter "Name like 'python%'" -ErrorAction SilentlyContinue |
-        Where-Object { $_.CommandLine -like "*turath serve*" } |
+        Where-Object { $_.CommandLine -like "*-m turath*" } |
         ForEach-Object { Invoke-CimMethod -InputObject $_ -MethodName Terminate -ErrorAction SilentlyContinue | Out-Null }
     Start-Sleep -Milliseconds 800
 }
@@ -106,10 +107,23 @@ try {
     if ($LASTEXITCODE -ne 0) { Fail "تعذّر إنشاء الأيقونة." }
 } finally { Pop-Location }
 
-# 5) التشغيل
+# 5) التشغيل والتحقق من أن اللوحة قامت فعلاً
 Say "فتح لوحة التحكم…"
-Start-Process -FilePath $pyw -ArgumentList "-m", "turath", "serve" -WorkingDirectory $App
+Start-Process -FilePath $pyw -ArgumentList "-m", "turath.launch" -WorkingDirectory $App
+$up = $false
+for ($i = 0; $i -lt 30; $i++) {
+    Start-Sleep -Milliseconds 500
+    $port = 8765
+    try { $port = (Get-Content (Join-Path $env:USERPROFILE "Turath\turath.json") -Raw | ConvertFrom-Json).port } catch { }
+    try { Invoke-WebRequest -Uri "http://127.0.0.1:$port/api/public" -UseBasicParsing -TimeoutSec 2 | Out-Null; $up = $true; break } catch { }
+}
+if (-not $up) {
+    Write-Host ""
+    Write-Host "  ✖ لم تبدأ اللوحة. هذا تقرير التشخيص — أرسلوه كما هو:" -ForegroundColor Red
+    Push-Location $App; Run-Native { & $py -m turath doctor }; Pop-Location
+    Read-Host "اضغط Enter للإغلاق"; exit 1
+}
 Write-Host ""
-Write-Host "  ✔ اكتمل التثبيت. من الآن: انقروا أيقونة «تراث» على سطح المكتب." -ForegroundColor Green
+Write-Host "  ✔ اكتمل التثبيت، واللوحة تعمل. من الآن: انقروا أيقونة «تراث» على سطح المكتب." -ForegroundColor Green
 Write-Host ("  البيانات: " + (Join-Path $env:USERPROFILE "Turath")) -ForegroundColor Gray
 Write-Host ""

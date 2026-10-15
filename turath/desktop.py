@@ -121,7 +121,7 @@ def _windows(remove: bool) -> list[Path]:
             continue
         lnk.parent.mkdir(parents=True, exist_ok=True)
         ps = (f"$s=(New-Object -ComObject WScript.Shell).CreateShortcut({_ps_quote(str(lnk))});"
-              f"$s.TargetPath={_ps_quote(_pythonw())};$s.Arguments='-m turath serve';"
+              f"$s.TargetPath={_ps_quote(_pythonw())};$s.Arguments='-m turath.launch';"
               f"$s.WorkingDirectory={_ps_quote(str(APP_DIR))};"
               f"$s.IconLocation={_ps_quote(str(PKG / 'static' / 'img' / 'turath.ico'))};"
               f"$s.Description='إدارة الدراسات والبحوث التراثية الإماراتية';$s.Save()")
@@ -144,7 +144,7 @@ def _mac(remove: bool) -> list[Path]:
         macos.mkdir(parents=True, exist_ok=True)
         res.mkdir(parents=True, exist_ok=True)
         run = macos / "turath"
-        run.write_text(f'#!/bin/bash\ncd "{APP_DIR}"\nexec "{sys.executable}" -m turath serve >/dev/null 2>&1\n', encoding="utf-8")
+        run.write_text(f'#!/bin/bash\ncd "{APP_DIR}"\nexec "{sys.executable}" -m turath.launch\n', encoding="utf-8")
         run.chmod(0o755)
         icns = PKG / "static" / "img" / "turath.icns"
         if icns.exists():
@@ -163,7 +163,7 @@ def _mac(remove: bool) -> list[Path]:
 
 def _linux(remove: bool) -> list[Path]:
     entry = (f"[Desktop Entry]\nName={NAME}\nComment=إدارة الدراسات والبحوث التراثية الإماراتية\n"
-             f"Exec={sys.executable} -m turath serve\nPath={APP_DIR}\nIcon={PKG / 'static' / 'img' / 'logo-turath.png'}\n"
+             f"Exec={sys.executable} -m turath.launch\nPath={APP_DIR}\nIcon={PKG / 'static' / 'img' / 'logo-turath.png'}\n"
              "Terminal=false\nType=Application\nCategories=Education;Office;\n")
     done = []
     for p in (_desktop_dir() / "turath.desktop", Path.home() / ".local" / "share" / "applications" / "turath.desktop"):
@@ -185,3 +185,14 @@ def install_icon(remove: bool = False) -> list[Path]:
     if sys.platform == "darwin":
         return _mac(remove)
     return _linux(remove)
+
+
+def icon_paths() -> list[Path]:
+    """مواضع الأيقونة المتوقعة في هذا النظام (للتشخيص)."""
+    d = _desktop_dir()
+    if os.name == "nt":
+        return [d / f"{NAME}.lnk",
+                Path(os.environ.get("APPDATA", "")) / "Microsoft" / "Windows" / "Start Menu" / "Programs" / f"{NAME}.lnk"]
+    if sys.platform == "darwin":
+        return [d / f"{NAME}.app", Path.home() / "Applications" / f"{NAME}.app"]
+    return [d / "turath.desktop", Path.home() / ".local" / "share" / "applications" / "turath.desktop"]

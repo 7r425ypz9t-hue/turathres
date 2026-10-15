@@ -117,7 +117,24 @@ def cmd_pilot(a):
     print(json.dumps(pilot.import_pilot(dict(owner)), ensure_ascii=False))
 
 
+def _utf8_io():
+    """نافذة الأوامر في ويندوز غير العربي تكتب بترميز لا يعرف الحرف العربي؛ فيُفرض UTF-8 لئلا تتوقف الأوامر."""
+    for stream in (sys.stdout, sys.stderr):
+        try:
+            if stream is not None and (stream.encoding or "").lower().replace("-", "") != "utf8":
+                stream.reconfigure(encoding="utf-8", errors="replace")
+        except Exception:
+            pass
+
+
+def cmd_doctor(a):
+    from .doctor import report
+    ok = report()
+    sys.exit(0 if ok else 1)
+
+
 def main(argv=None):
+    _utf8_io()
     ap = argparse.ArgumentParser(prog="turath", description="«تراث» — إدارة الدراسات والبحوث التراثية الإماراتية")
     ap.add_argument("--version", action="version", version=__version__)
     ap.add_argument("--home", help="مجلد البيانات (الافتراضي ~/Turath أو TURATH_HOME)")
@@ -146,6 +163,7 @@ def main(argv=None):
     sp.add_parser("skills-gen", help="توليد مهارات Claude Code من سجل المهارات").set_defaults(fn=cmd_skills_gen)
     sp.add_parser("docs-gen", help="توليد وثائق المخطط والوكلاء والمهارات ومهارات Claude Code").set_defaults(fn=cmd_docs_gen)
     sp.add_parser("forms-gen", help="توليد الاستمارات بصيغة Word بالهوية البصرية").set_defaults(fn=cmd_forms_gen)
+    sp.add_parser("doctor", help="تشخيص التشغيل: Python والملفات والبيانات والمنفذ والأيقونة والسجل").set_defaults(fn=cmd_doctor)
     s = sp.add_parser("install-icon", help="أيقونة «تراث» على سطح المكتب وفي قائمة البرامج")
     s.add_argument("--remove", action="store_true")
     s.set_defaults(fn=cmd_icon)

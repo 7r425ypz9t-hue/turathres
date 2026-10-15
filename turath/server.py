@@ -446,7 +446,23 @@ def serve(open_browser: bool = True, port: int | None = None) -> None:
     try:
         httpd = ThreadingHTTPServer((host, port), Handler)
     except OSError as e:
-        raise SystemExit(f"المنفذ {port} مشغول ببرنامج آخر؛ غيّروه بالأمر: turath setup solo --port 8790  ({e})")
+        if CFG.mode != "solo":
+            raise SystemExit(f"المنفذ {port} مشغول ببرنامج آخر؛ غيّروه بالأمر: turath setup {CFG.mode} --port 8790  ({e})")
+        # النمط الفردي: يُختار منفذ حر تلقائياً ويُحفظ، فلا يتوقف التشغيل بسبب برنامج آخر
+        httpd = None
+        for p in range(port + 1, port + 60):
+            if desktop.running(p):
+                continue
+            try:
+                httpd = ThreadingHTTPServer((host, p), Handler)
+                print(f"المنفذ {port} مشغول ببرنامج آخر؛ نُقلت اللوحة إلى المنفذ {p}.")
+                port = CFG.port = p
+                CFG.save()
+                break
+            except OSError:
+                continue
+        if httpd is None:
+            raise SystemExit(f"لم يُعثر على منفذ حر قرب {port}  ({e})")
     scheme = "http"
     if CFG.tls_cert and CFG.tls_key:
         ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
