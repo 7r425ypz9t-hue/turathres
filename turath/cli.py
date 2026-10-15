@@ -118,11 +118,36 @@ def cmd_fonts(a):
         for f in a.files:
             w = fonts.install(Path(f).name, Path(f).read_bytes())
             print(f"ثُبّت «أضواء السلف» ({'عريض' if w == 'bold' else 'عادي'}): {f}")
+    if a.action in ("install", "system"):
+        done = fonts.install_system()
+        print(f"وفي النظام (لـWord وPowerPoint): {fonts.system_folder()}" if done else
+              "لا ملف خط في مجلد البيانات بعد: turath fonts install adwa-assalaf.ttf adwa-assalaf_B.ttf")
     elif a.action == "remove":
         fonts.remove()
         print("أُزيل الخط من مجلد البيانات.")
     st = fonts.status()
     print(f"العادي: {'مثبت' if st['regular'] else 'غير مثبت'} · العريض: {'مثبت' if st['bold'] else 'غير مثبت'} · {st['folder']}")
+    sy = fonts.system_status()
+    print(f"في النظام: {'مثبت' if all(sy.values()) else 'غير مثبت'} · {fonts.system_folder()}")
+
+
+def cmd_appicon(a):
+    _init(a.home)
+    from pathlib import Path
+    from . import appicon
+    from .desktop import install_icon
+    if a.action == "set":
+        if not a.file:
+            sys.exit("حدّدوا صورة الأيقونة: turath icon set icon.png")
+        appicon.adopt(Path(a.file).read_bytes())
+        print(f"اعتُمدت الأيقونة: {a.file}")
+    elif a.action == "reset":
+        appicon.reset()
+        print("أُعيدت الأيقونة المضمَّنة.")
+    if a.action in ("set", "reset"):
+        for p in install_icon():
+            print("حُدّث الاختصار: " + str(p))
+    print(("الأيقونة المعتمدة: " + str(appicon.paths()["png"])) if appicon.custom() else "الأيقونة: المضمَّنة في البرنامج")
 
 
 def cmd_pilot(a):
@@ -184,10 +209,14 @@ def main(argv=None):
     s = sp.add_parser("install-icon", help="أيقونة «تراث» على سطح المكتب وفي قائمة البرامج")
     s.add_argument("--remove", action="store_true")
     s.set_defaults(fn=cmd_icon)
-    s = sp.add_parser("fonts", help="خط الهوية «أضواء السلف»: install · status · remove")
-    s.add_argument("action", choices=["install", "status", "remove"])
+    s = sp.add_parser("fonts", help="خط الهوية «أضواء السلف»: install · system · status · remove")
+    s.add_argument("action", choices=["install", "system", "status", "remove"])
     s.add_argument("files", nargs="*")
     s.set_defaults(fn=cmd_fonts)
+    s = sp.add_parser("icon", help="أيقونة البرنامج: set صورة.png · reset · status")
+    s.add_argument("action", choices=["set", "reset", "status"])
+    s.add_argument("file", nargs="?")
+    s.set_defaults(fn=cmd_appicon)
     s = sp.add_parser("pilot", help="استيراد النموذج التطبيقي التجريبي")
     s.add_argument("--user")
     s.set_defaults(fn=cmd_pilot)

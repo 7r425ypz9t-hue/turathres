@@ -23,6 +23,7 @@ from . import db
 from . import entities as EN
 from . import evidence as EV
 from . import fonts as FN
+from . import appicon
 from . import export as EX
 from . import kpis
 from . import lifecycle as LC
@@ -196,6 +197,9 @@ class Handler(BaseHTTPRequestHandler):
             if name not in FN.FILES.values() or not f.is_file():
                 return self._send(404, b"", "font/ttf")
             return self._send(200, f.read_bytes(), "font/ttf", {"Cache-Control": "max-age=86400"})
+        if path in ("/img/app-icon.png", "/img/favicon.png") and appicon.custom():
+            # الأيقونة التي اعتمدها صاحب الإدارة تحل محل المضمَّنة في اللوحة أيضاً
+            return self._send(200, appicon.paths()["png"].read_bytes(), "image/png", {"Cache-Control": "no-cache"})
         if path in ("/", ""):
             path = "/index.html"
         p = (STATIC / path.lstrip("/")).resolve()
@@ -240,6 +244,12 @@ class Handler(BaseHTTPRequestHandler):
             db.get(user, seg[1], seg[2])
             return self._json(db.history(seg[1], seg[2]))
         if head == "fonts":
+            if method == "POST" and seg[1:2] == ["system"]:
+                if CFG.mode != "solo" or user["role"] not in ("admin", "director"):
+                    raise db.Denied("التثبيت في النظام للمدير على جهازه (النمط الفردي)")
+                if not FN.install_system():
+                    raise ApiError("أودعوا ملفَّي الخط أولاً")
+                return self._json(FN.status() | {"system": FN.system_status(), "local": True})
             if method == "POST":
                 if user["role"] not in ("admin", "director"):
                     raise db.Denied("تثبيت الخط للمدير")
@@ -247,8 +257,28 @@ class Handler(BaseHTTPRequestHandler):
                 if n <= 0 or n > FN.MAX:
                     raise ApiError("حجم ملف الخط غير مقبول")
                 w = FN.install(unquote(self.headers.get("X-Filename") or "font.ttf"), self.rfile.read(n))
-                return self._json({"installed": w} | FN.status())
-            return self._json(FN.status())
+                if CFG.mode == "solo":   # الخادم هو جهاز المستخدم نفسه: يُثبَّت في النظام ليراه Word وPowerPoint
+                    try:
+                        FN.install_system()
+                    except OSError as e:
+                        print(f"تعذّر تثبيت الخط في النظام: {e}", flush=True)
+                return self._json({"installed": w} | FN.status() | {"system": FN.system_status()})
+            return self._json(FN.status() | {"system": FN.system_status(), "local": CFG.mode == "solo"})
+        if head == "icon":
+            if method == "POST":
+                if CFG.mode != "solo" or user["role"] not in ("admin", "director"):
+                    raise db.Denied("اعتماد الأيقونة للمدير على جهازه (النمط الفردي)")
+                n = int(self.headers.get("Content-Length") or 0)
+                if n <= 0 or n > appicon.MAX:
+                    raise ApiError("حجم صورة الأيقونة غير مقبول")
+                st = appicon.adopt(self.rfile.read(n))
+                from .desktop import install_icon
+                try:
+                    st["shortcuts"] = [str(p) for p in install_icon()]
+                except Exception as e:  # الأيقونة اعتُمدت وإن تعذّر تحديث الاختصار الآن
+                    st["shortcuts"], st["warning"] = [], str(e)
+                return self._json(st)
+            return self._json(appicon.status() | {"local": CFG.mode == "solo"})
         if head == "upload" and method == "POST":
             n = int(self.headers.get("Content-Length") or 0)
             if n <= 0 or n > MAX_UPLOAD:

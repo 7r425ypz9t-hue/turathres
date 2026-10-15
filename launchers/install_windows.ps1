@@ -91,9 +91,9 @@ if (Test-Path $App) { Stop-Turath; Remove-Item -Recurse -Force $App }
 Move-Item $new $App
 if (Test-Path $staging) { Remove-Item -Recurse -Force $staging }
 
-# 3) مكتبة Word الاختيارية (تصدير ملفات .docx)
+# 3) المكتبات الاختيارية: Word (تصدير .docx) وPillow (تحويل صورة الأيقونة المعتمدة بكل مقاساتها)
 Say "إعداد تصدير Word…"
-Run-Native { & $py -m pip install --user --quiet --disable-pip-version-check python-docx 2>$null | Out-Null }
+Run-Native { & $py -m pip install --user --quiet --disable-pip-version-check python-docx pillow 2>$null | Out-Null }
 
 # 4) النمط الفردي والأيقونة
 Push-Location $App
@@ -105,6 +105,10 @@ try {
     Say "إنشاء الأيقونة على سطح المكتب وفي قائمة البرامج…"
     Run-Native { & $py -m turath install-icon }
     if ($LASTEXITCODE -ne 0) { Fail "تعذّر إنشاء الأيقونة." }
+    # إن كان خط «أضواء السلف» مودعاً في مجلد البيانات ثُبّت في ويندوز ليظهر في Word وPowerPoint
+    if (Test-Path (Join-Path $env:USERPROFILE "Turath\fonts\adwa-assalaf.ttf")) {
+        Run-Native { & $py -m turath fonts system 2>$null | Out-Null }
+    }
 } finally { Pop-Location }
 
 # 5) التشغيل والتحقق من أن اللوحة قامت فعلاً

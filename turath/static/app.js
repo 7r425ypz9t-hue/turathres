@@ -118,7 +118,7 @@ function logout(silent) {
 }
 async function showLogin() {
   const p = await fetch("/api/public").then((r) => r.json()).catch(() => ({}));
-  $("#root").innerHTML = `<div class="login"><div class="art"><div class="cap"><img src="img/logo-turath.svg" width="70" alt="">
+  $("#root").innerHTML = `<div class="login"><div class="art"><div class="cap"><img src="img/app-icon.png" width="84" alt="" class="appicon">
     <h1>تراث</h1><p>${esc(p.institution || "")}</p></div></div>
     <div class="pane"><form class="box card stack" id="lf"><div class="accent" style="--c:${C.gold}"></div>
       <h2 style="color:var(--blue);margin:0">تسجيل الدخول</h2><div class="chip blue">${esc(p.mode_label || "")}</div>
@@ -145,7 +145,7 @@ function shell() {
   const init = (S.user.display_name || S.user.username || "؟").trim()[0];
   const eng = S.info.engines[S.info.engine];
   $("#root").innerHTML = `<div class="app"><aside class="side" id="side">
-      <div class="brand"><img src="img/logo-turath.svg" alt=""><div><b>تراث</b><small>إدارة الدراسات والبحوث<br>التراثية الإماراتية</small></div></div>
+      <div class="brand"><img src="img/app-icon.png" alt=""><div><b>تراث</b><small>إدارة الدراسات والبحوث<br>التراثية الإماراتية</small></div></div>
       <div class="sadu"></div><nav class="nav">${navHtml}</nav>
       <div class="foot"><span class="mode">${ic("users")} ${esc(S.info.mode_label)}</span><div style="margin-top:6px">الإصدار ${esc(S.info.version)}</div></div></aside>
     <div class="col"><header class="top">
@@ -837,6 +837,8 @@ async function settings(main) {
     <div><button class="btn">${ic("check")} إنشاء</button></div></form></div>` : ""}
   ${sec("خط الهوية «أضواء السلف»", "feather", C.gold)}
   <div class="card" id="fontcard"><p class="muted small">جارٍ الفحص…</p></div>
+  ${sec("أيقونة البرنامج", "star", C.clay)}
+  <div class="card" id="iconcard"><p class="muted small">جارٍ الفحص…</p></div>
   ${sec("صور الواجهة ومصادرها", "camera", C.sky)}<div id="credits" class="table-wrap"></div>
   <p class="tiny muted">صور الواجهة للزينة لا دليلاً تاريخياً. والمولَّد منها موسوم «إعادة بناء تصورية» حيثما ظهر.</p>
   ${sec("الحماية والاستمرارية", "shield", C.palm)}<div class="row"><button class="btn ghost" data-go="vault">${ic("shield")} فحص السلامة والنسخ الاحتياطي</button>
@@ -849,9 +851,12 @@ async function settings(main) {
       <h3 style="margin:0">${ok ? ic("check") + " الخط مثبت" : ic("alert") + " الخط غير مثبت بعد"}</h3>
       <p class="small" style="margin:.4em 0">العادي: ${f.regular ? badge("مثبت", C.palm) : badge("غير مثبت", C.crimson)} · العريض: ${f.bold ? badge("مثبت", C.palm) : badge("غير مثبت", C.crimson)}</p>
       <p class="tiny muted">يُحفظ الملفان في مجلد البيانات على هذا الجهاز (<span dir="ltr">${esc(f.folder)}</span>)، ولا يُرفعان إلى المستودع لأن الخط مرخَّص.
-      وبدونه تعمل الواجهة بخط Noto Naskh Arabic. ولملفات Word ثبّتوا الخط في النظام أيضاً (انقر الملف نقراً مزدوجاً ← تثبيت).</p>
+      وبدونه تعمل الواجهة بخط Noto Naskh Arabic.</p>
+      <p class="small" style="margin:.4em 0">في نظام التشغيل (لـWord وPowerPoint والدليل المصوَّر): ${f.system && f.system.regular && f.system.bold ? badge("مثبت", C.palm) : badge("غير مثبت", C.crimson)}</p>
       <p style="font-family:'Adwa Assalaf';font-size:1.5rem;margin:.2em 0">إدارة الدراسات والبحوث التراثية الإماراتية <b>· تراث</b></p></div>
-      ${canAdmin ? `<label class="btn gold" style="cursor:pointer">${ic("upload")} اختيار ملفّي الخط<input type="file" id="fontfiles" accept=".ttf,.otf" multiple hidden></label>` : ""}</div>`;
+      ${canAdmin ? `<div class="row" style="flex-direction:column;align-items:stretch"><label class="btn gold" style="cursor:pointer">${ic("upload")} اختيار ملفّي الخط<input type="file" id="fontfiles" accept=".ttf,.otf" multiple hidden></label>
+        ${f.local && ok ? `<button class="btn ghost" id="fontsys">${ic("check")} تثبيته في نظام التشغيل</button>` : ""}</div>` : ""}</div>`;
+    if ($("#fontsys")) $("#fontsys").onclick = async () => { if (await run(() => api("fonts/system", { method: "POST" }), "ثُبّت الخط في النظام؛ أعيدوا فتح PowerPoint وWord")) loadFont(); };
     if ($("#fontfiles")) $("#fontfiles").onchange = async (e) => {
       for (const file of e.target.files) {
         await run(() => api("fonts", { method: "POST", raw: true, body: file, headers: { "X-Filename": encodeURIComponent(file.name) } }), "ثُبّت " + file.name);
@@ -860,6 +865,21 @@ async function settings(main) {
     };
   };
   loadFont().catch(() => {});
+  const loadIcon = async () => {
+    const st = await api("icon");
+    $("#iconcard").innerHTML = `<div class="spread"><div style="display:flex;gap:1rem;align-items:center">
+      <img src="img/app-icon.png?${Date.now()}" alt="" style="width:96px;height:96px;border-radius:20px;box-shadow:0 6px 18px rgba(0,0,0,.25)">
+      <div><h3 style="margin:0">${st.custom ? "الأيقونة التي اعتمدتموها" : "الأيقونة المضمَّنة في البرنامج"}</h3>
+      <p class="tiny muted" style="margin:.4em 0">تظهر على سطح المكتب وفي قائمة البرامج وفي هذه اللوحة. ويُفضَّل ملف PNG مربع بمقاس 512 بكسل فأكثر.
+      ${st.custom ? `<br>محفوظة في <span dir="ltr">${esc(st.folder)}</span> فتبقى بعد التحديثات.` : ""}</p></div></div>
+      ${canAdmin && st.local ? `<label class="btn gold" style="cursor:pointer">${ic("upload")} اعتماد صورة أيقونة<input type="file" id="iconfile" accept=".png,.jpg,.jpeg,.webp" hidden></label>` : ""}</div>`;
+    if ($("#iconfile")) $("#iconfile").onchange = async (e) => {
+      const file = e.target.files[0];
+      const r = file && await run(() => api("icon", { method: "POST", raw: true, body: file }), "اعتُمدت الأيقونة وحُدّث اختصار سطح المكتب");
+      if (r) location.reload();
+    };
+  };
+  loadIcon().catch(() => {});
   fetch("img/photos/credits.json").then((r) => r.json()).then((L) => {
     $("#credits").innerHTML = `<table><thead><tr><th>الصورة</th><th>موضعها</th><th>النوع</th><th>الملف الأصلي</th><th>الحقوق</th></tr></thead><tbody>${L.map((c) => `<tr>
       <td><img src="img/photos/${esc(c.file)}" alt="" style="width:96px;height:60px;object-fit:cover;border-radius:8px"></td><td>${esc(c.used_for)}</td>

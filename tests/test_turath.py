@@ -333,6 +333,50 @@ class TestFonts(Base):
         self.assertFalse([l for l in out.splitlines() if l.endswith((".ttf", ".otf", ".woff", ".woff2"))])
 
 
+    @unittest.skipIf(os.name == "nt" or sys.platform == "darwin", "اختبار مجلد خطوط لينكس")
+    def test_install_into_operating_system(self):
+        from turath import fonts
+        with tempfile.TemporaryDirectory() as h:
+            old = os.environ.get("HOME")
+            os.environ["HOME"] = h
+            try:
+                self.assertEqual(fonts.install_system(), [])           # لا شيء في مجلد البيانات بعد
+                fonts.install("adwa-assalaf.ttf", self.FAKE)
+                fonts.install("adwa-assalaf_B.ttf", self.FAKE)
+                self.assertEqual(sorted(fonts.install_system()), ["bold", "regular"])
+                self.assertTrue(all(fonts.system_status().values()))
+                self.assertTrue(str(fonts.system_folder()).startswith(h))
+            finally:
+                os.environ["HOME"] = old or ""
+
+
+def _png(n: int) -> bytes:
+    """صورة PNG مربعة بلون واحد، بلا مكتبات خارجية."""
+    import struct
+    import zlib
+    chunk = lambda t, d: struct.pack(">I", len(d)) + t + d + struct.pack(">I", zlib.crc32(t + d))
+    raw = b"".join(b"\x00" + b"\xb8\x86\x0b\xff" * n for _ in range(n))
+    return (b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", struct.pack(">IIBBBBB", n, n, 8, 6, 0, 0, 0))
+            + chunk(b"IDAT", zlib.compress(raw)) + chunk(b"IEND", b""))
+
+
+class TestAppIcon(Base):
+    def test_adopt_and_reset(self):
+        from turath import appicon
+        self.assertFalse(appicon.custom())
+        self.assertTrue(appicon.paths()["ico"].is_file())               # الأيقونة المضمَّنة موجودة
+        appicon.adopt(_png(512))
+        self.assertTrue(appicon.custom())
+        ico = appicon.paths()["ico"].read_bytes()
+        self.assertEqual(ico[:4], b"\x00\x00\x01\x00")
+        self.assertEqual(appicon.paths()["icns"].read_bytes()[:4], b"icns")
+        self.assertTrue(str(appicon.paths()["png"]).startswith(str(CFG.home)))
+        with self.assertRaises(ValueError):
+            appicon.adopt(b"not an image" * 20)
+        appicon.reset()
+        self.assertFalse(appicon.custom())
+
+
 class TestServer(Base):
     def setUp(self):
         super().setUp()

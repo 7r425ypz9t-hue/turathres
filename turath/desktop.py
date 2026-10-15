@@ -16,6 +16,8 @@ import urllib.request
 import webbrowser
 from pathlib import Path
 
+from . import appicon
+
 PKG = Path(__file__).parent
 APP_DIR = PKG.parent
 NAME = "تراث"
@@ -120,14 +122,21 @@ def _windows(remove: bool) -> list[Path]:
                 done.append(lnk)
             continue
         lnk.parent.mkdir(parents=True, exist_ok=True)
+        lnk.unlink(missing_ok=True)   # يُعاد إنشاء الاختصار من جديد كي لا يبقى رسم الأيقونة القديم
         ps = (f"$s=(New-Object -ComObject WScript.Shell).CreateShortcut({_ps_quote(str(lnk))});"
               f"$s.TargetPath={_ps_quote(_pythonw())};$s.Arguments='-m turath.launch';"
               f"$s.WorkingDirectory={_ps_quote(str(APP_DIR))};"
-              f"$s.IconLocation={_ps_quote(str(PKG / 'static' / 'img' / 'turath.ico'))};"
+              f"$s.IconLocation={_ps_quote(str(appicon.paths()['ico']))};"
               f"$s.Description='إدارة الدراسات والبحوث التراثية الإماراتية';$s.Save()")
         subprocess.run(["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", ps], check=True,
                        timeout=60, creationflags=NO_WINDOW)
         done.append(lnk)
+    if done and not remove:
+        # تحديث ذاكرة الأيقونات في ويندوز حتى تظهر الأيقونة المعتمدة فوراً؛ وإن تعذّر فبعد إعادة الدخول
+        try:
+            subprocess.run(["ie4uinit.exe", "-show"], timeout=30, creationflags=NO_WINDOW)
+        except (OSError, subprocess.SubprocessError):
+            pass
     return done
 
 
@@ -146,7 +155,7 @@ def _mac(remove: bool) -> list[Path]:
         run = macos / "turath"
         run.write_text(f'#!/bin/bash\ncd "{APP_DIR}"\nexec "{sys.executable}" -m turath.launch\n', encoding="utf-8")
         run.chmod(0o755)
-        icns = PKG / "static" / "img" / "turath.icns"
+        icns = appicon.paths()["icns"]
         if icns.exists():
             shutil.copy(icns, res / "turath.icns")
         (app / "Contents" / "Info.plist").write_text(
@@ -157,13 +166,14 @@ def _mac(remove: bool) -> list[Path]:
             "<key>CFBundleIconFile</key><string>turath</string><key>CFBundlePackageType</key><string>APPL</string>"
             "<key>CFBundleShortVersionString</key><string>1.0</string><key>LSUIElement</key><true/></dict></plist>\n",
             encoding="utf-8")
+        os.utime(app)   # يحمل Finder على قراءة الأيقونة من جديد
         done.append(app)
     return done
 
 
 def _linux(remove: bool) -> list[Path]:
     entry = (f"[Desktop Entry]\nName={NAME}\nComment=إدارة الدراسات والبحوث التراثية الإماراتية\n"
-             f"Exec={sys.executable} -m turath.launch\nPath={APP_DIR}\nIcon={PKG / 'static' / 'img' / 'logo-turath.png'}\n"
+             f"Exec={sys.executable} -m turath.launch\nPath={APP_DIR}\nIcon={appicon.paths()['png']}\n"
              "Terminal=false\nType=Application\nCategories=Education;Office;\n")
     done = []
     for p in (_desktop_dir() / "turath.desktop", Path.home() / ".local" / "share" / "applications" / "turath.desktop"):

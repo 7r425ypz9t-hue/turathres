@@ -62,6 +62,59 @@ def remove() -> None:
         path(w).unlink(missing_ok=True)
 
 
+# ------------------------------------------------------------ التثبيت في نظام التشغيل
+# Word وPowerPoint لا يريان الخط ما دام في مجلد البيانات وحده؛ فيُنسخ إلى مجلد خطوط المستخدم
+# (بلا صلاحيات مدير) ويُسجَّل، فتظهر الوثائق والعروض به على هذا الجهاز.
+
+REG_NAMES = {"regular": f"{FAMILY} (TrueType)", "bold": f"{FAMILY} Bold (TrueType)"}
+
+
+def system_folder() -> Path:
+    import os
+    import sys
+    if os.name == "nt":
+        return Path(os.environ.get("LOCALAPPDATA") or Path.home() / "AppData" / "Local") / "Microsoft" / "Windows" / "Fonts"
+    if sys.platform == "darwin":
+        return Path.home() / "Library" / "Fonts"
+    return Path.home() / ".local" / "share" / "fonts"
+
+
+def system_status() -> dict:
+    return {w: (system_folder() / FILES[w]).is_file() for w in FILES}
+
+
+def install_system() -> list[str]:
+    """ينسخ ما في مجلد البيانات من ملفَّي الخط إلى خطوط المستخدم في النظام ويسجّلهما. يعيد الأوزان المثبتة."""
+    import os
+    import shutil
+    import subprocess
+    done = []
+    dest = system_folder()
+    for w, name in FILES.items():
+        src = path(w)
+        if not src.is_file():
+            continue
+        dest.mkdir(parents=True, exist_ok=True)
+        try:
+            shutil.copyfile(src, dest / name)
+        except PermissionError:   # الخط مفتوح في Word أو PowerPoint: النسخة الموجودة صالحة
+            if not (dest / name).is_file():
+                raise
+        if os.name == "nt":
+            import winreg
+            with winreg.CreateKey(winreg.HKEY_CURRENT_USER, r"Software\Microsoft\Windows NT\CurrentVersion\Fonts") as k:
+                winreg.SetValueEx(k, REG_NAMES[w], 0, winreg.REG_SZ, str(dest / name))
+        done.append(w)
+    if done and os.name == "nt":
+        import ctypes   # إشعار البرامج المفتوحة بتغيّر الخطوط (WM_FONTCHANGE)
+        for w in done:
+            ctypes.windll.gdi32.AddFontResourceW(str(dest / FILES[w]))
+        ctypes.windll.user32.SendMessageTimeoutW(0xFFFF, 0x001D, 0, 0, 0x0002, 1000, None)
+    elif done and shutil.which("fc-cache"):
+        subprocess.run(["fc-cache", "-f", str(dest)], capture_output=True, timeout=60)
+    return done
+
+
 LATIN_RUN = re.compile(r"([A-Za-z0-9][A-Za-z0-9_.:/@#%+\-]*)")
 
 

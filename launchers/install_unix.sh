@@ -43,8 +43,8 @@ rm -rf "$APP.old"; [ -d "$APP" ] && mv "$APP" "$APP.old"
 mv "$NEW" "$APP"; rm -rf "$STAGE" "$APP.old"
 
 say "إعداد تصدير Word…"
-"$PY" -m pip install --user --quiet --disable-pip-version-check python-docx >/dev/null 2>&1 || \
-  "$PY" -m pip install --user --quiet --break-system-packages python-docx >/dev/null 2>&1 || true
+"$PY" -m pip install --user --quiet --disable-pip-version-check python-docx pillow >/dev/null 2>&1 || \
+  "$PY" -m pip install --user --quiet --break-system-packages python-docx pillow >/dev/null 2>&1 || true
 
 cd "$APP"
 if [ ! -f "$HOME/Turath/turath.json" ]; then say "تهيئة النمط الفردي…"; "$PY" -m turath setup solo >/dev/null; fi
