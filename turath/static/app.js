@@ -178,6 +178,9 @@ async function boot() {
     S.user = me.user; S.info = me.info; S.schema = await api("schema");
   } catch { return; }
   shell(); route();
+  let toured = false;
+  try { toured = localStorage.getItem("turath_toured") === "1"; } catch {}
+  if (!toured) setTimeout(() => showTour(0), 600);
 }
 
 /* ------------------------------------------------------------ مكونات */
@@ -489,7 +492,7 @@ async function vault(main) {
       <label>المودِع<input name="depositor"></label>
       <label>مستوى الإتاحة<select name="access"><option value="private">خاص</option><option value="project">ضمن المشروع</option><option value="shared">مشارَك</option></select></label></form></div>
   ${sec("المسار الوثائقي: الصور", "camera", C.sky)}
-  ${imgs.length ? `<div class="gallery">${imgs.map((a) => `<div class="thumb"><img loading="lazy" src="${fileUrl(a.id)}" alt="${esc(a.filename)}"><span class="tag">${badge(a.integrity === "ok" ? "سليم" : a.integrity, STATUS_C[a.integrity])}</span><div class="cap">${esc(a.filename)}</div></div>`).join("")}</div>`
+  ${imgs.length ? `<div class="gallery">${imgs.map((a) => `<div class="thumb"><img loading="lazy" src="${fileUrl(a.id)}" alt="${esc(a.filename)}"><span class="tag">${badge(a.integrity === "ok" ? "سليم" : a.integrity, STATUS_C[a.integrity])} ${hasGps(a) ? badge("يحمل موقعاً", C.crimson) : ""}</span><div class="cap">${esc(a.filename)}</div></div>`).join("")}</div>`
     : `<div class="card empty"><img src="img/scene-fort.svg" alt=""><p>لا صور بعد. الصور المودعة هنا تدخل المسار الوثائقي بعد توثيق مصدرها؛ والرسوم في هذه اللوحة زخرفية لا دليل تاريخي.</p></div>`}
   ${sec("الملفات الصوتية والمرئية والوثائق", "wave", C.teal)}
   ${other.length ? `<div class="table-wrap"><table><thead><tr><th>المعرّف</th><th>الملف</th><th>النوع</th><th>الحجم</th><th>البصمة</th><th>المصدر</th><th>السلامة</th><th></th></tr></thead><tbody>
@@ -516,6 +519,33 @@ async function vault(main) {
   drop.ondrop = (e) => { e.preventDefault(); drop.classList.remove("over"); send([...e.dataTransfer.files]); };
   $("#ver").onclick = async () => { const r = await run(() => api("vault/verify", { method: "POST" })); if (r) { toast(`سليم: ${r.ok} · مفقود: ${r.missing.length} · معدَّل: ${r.altered.length}`, !!(r.missing.length || r.altered.length)); vault(main); } };
   $("#bak").onclick = async () => { const r = await run(() => api("vault/backup", { method: "POST" })); if (r) toast("حُفظت النسخة الاحتياطية: " + r.file); };
+}
+
+const hasGps = (a) => { try { return !!JSON.parse(a.technical || "{}").gps; } catch { return false; } };
+
+/* ------------------------------------------------------------ دليل البدء */
+const TOUR = [
+  ["hero-coast", "مرحباً بكم في «تراث»", "إدارة بحثية رقمية لتراث الإمارات: أرشيف يحفظ الأدلة الأولية، ويربط كل استنتاج علمي بأصله، بانضباط صفر تلفيق. هذه جولة من خمس خطوات."],
+  ["scene-archive", "١. المشروع أولاً", "كل بحث مشروع يمر بست عشرة مرحلة، من الفكرة إلى النشر. وعند كل انتقال بوابة جودة تُحسب فحوصها من البيانات، فلا يتقدم المشروع قبل استيفائها."],
+  ["scene-fort", "٢. الخزنة", "أودعوا التسجيلات والصور والوثائق بالسحب والإفلات، مع مصدرها وحقوقها. يُحفظ الأصل ببصمة رقمية للقراءة فقط، ويُكشف أي عبث به."],
+  ["scene-oral", "٣. المختبر الشفهي", "فرّغوا المقابلة حرفياً بطوابع زمنية، واللفظ المحلي كما نطقه الراوي. وما لم يُفهم يُعلَّم «[غير مفهوم]» دون تخمين، ثم يراجعه متحدث محلي مؤهل."],
+  ["scene-souq", "٤. الأدلة والتثليث", "كل ادعاء يُربط بأدلته. والشهادات المنقولة عن أصل واحد تُعدّ شهادة واحدة، ولا يُثبت ادعاء بالصحافة وحدها، وكل تعارض يُحفظ في سجله."],
+  ["scene-craft", "٥. الوكلاء والمهارات", "أربعة عشر أمراً، مثل «فرغ مقابلة» و«حقق رواية»، يُكلَّف بها الوكيل المختص. والاعتماد النهائي لكم وحدكم. ابدؤوا بالنموذج التطبيقي «التلي» لتروا المنظومة تعمل."],
+];
+function showTour(i = 0) {
+  const [img, title, text] = TOUR[i];
+  const last = i === TOUR.length - 1;
+  const body = modal(title, `<div style="height:220px;border-radius:16px;background:url(img/${img}.svg) center/cover;margin-bottom:14px"></div>
+    <p style="font-size:1.08rem">${esc(text)}</p>
+    <div class="row" style="justify-content:space-between;margin-top:14px"><span class="muted small">${i + 1} / ${TOUR.length}</span>
+    <div class="row">${i ? `<button class="btn ghost" id="tp">السابق</button>` : ""}
+      ${last ? `<button class="btn gold" id="tpilot">${ic("star")} النموذج التطبيقي: التلي</button><button class="btn" id="tend">إنهاء الجولة</button>`
+             : `<button class="btn gold" id="tn">التالي</button>`}</div></div>`, C.blue, "compass");
+  try { localStorage.setItem("turath_toured", "1"); } catch {}
+  if ($("#tp", body)) $("#tp", body).onclick = () => showTour(i - 1);
+  if ($("#tn", body)) $("#tn", body).onclick = () => showTour(i + 1);
+  if ($("#tend", body)) $("#tend", body).onclick = closeModal;
+  if ($("#tpilot", body)) $("#tpilot", body).onclick = () => { closeModal(); importPilot(); };
 }
 
 /* ------------------------------------------------------------ المختبر الشفهي */
@@ -801,7 +831,9 @@ async function settings(main) {
     <label>اسم المستخدم<input name="username" required></label><label>الاسم الظاهر<input name="display_name"></label><label>كلمة المرور<input name="password" type="password" minlength="8" required></label>
     <label>الصفة<select name="role">${Object.entries(S.info.roles).map(([k, l]) => `<option value="${k}" ${k === "researcher" ? "selected" : ""}>${esc(l)}</option>`).join("")}</select></label>
     <div><button class="btn">${ic("check")} إنشاء</button></div></form></div>` : ""}
-  ${sec("الحماية والاستمرارية", "shield", C.palm)}<div class="row"><button class="btn ghost" data-go="vault">${ic("shield")} فحص السلامة والنسخ الاحتياطي</button></div>`;
+  ${sec("الحماية والاستمرارية", "shield", C.palm)}<div class="row"><button class="btn ghost" data-go="vault">${ic("shield")} فحص السلامة والنسخ الاحتياطي</button>
+    <button class="btn ghost" id="tour">${ic("compass")} دليل البدء</button></div>`;
+  $("#tour").onclick = () => showTour(0);
   bindGo(main);
   if (canAdmin) $("#eng").onsubmit = async (e) => { e.preventDefault(); const r = await run(() => api("settings", { method: "POST", body: formData(e.target) }), "حُفظ"); if (r) { S.info = r; shell(); route(); } };
   if ($("#uf")) $("#uf").onsubmit = async (e) => { e.preventDefault(); if (await run(() => api("users", { method: "POST", body: formData(e.target) }), "أُنشئ الحساب")) settings(main); };

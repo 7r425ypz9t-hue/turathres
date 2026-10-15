@@ -86,3 +86,18 @@ def claim_card(user: dict, claim_id: str) -> dict:
         l["target_title"] = (tgt or {}).get("title") or (tgt or {}).get("name") or (tgt or {}).get("term") or l.get("target_id")
         l["level"] = _source_level(l)
     return {"claim": c, "links": L, "triangulation": triangulation(claim_id), "suggested_status": suggest_status(claim_id)}
+
+
+def consent_gaps(pid: str) -> dict:
+    """ما لا يجوز نشره بعد: مقابلات بلا موافقة نشر، وصور بلا موافقة، وأصول تحمل إحداثيات، وموافقات مسحوبة."""
+    import json as _json
+    imgs = []
+    for i in db.rows("SELECT id FROM images WHERE project_id=?", (pid,)):
+        if not db.one("SELECT 1 FROM permissions WHERE subject_table='images' AND subject_id=? AND consent_publication=1 "
+                      "AND (withdrawn IS NULL OR withdrawn=0)", (i["id"],)):
+            imgs.append(i["id"])
+    gps = [a["id"] for a in db.rows("SELECT id, technical FROM assets WHERE project_id=?", (pid,))
+           if _json.loads(a.get("technical") or "{}").get("gps")]
+    withdrawn = [r["subject_id"] for r in db.rows("SELECT subject_id FROM permissions WHERE project_id=? AND withdrawn=1", (pid,))]
+    return {"interviews_no_publication": interviews_without_consent(pid, "consent_publication"),
+            "images_no_publication": imgs, "assets_with_location": gps, "withdrawn": withdrawn}

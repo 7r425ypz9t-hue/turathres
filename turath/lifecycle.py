@@ -93,6 +93,9 @@ def checks(pid: str) -> list[dict]:
         add(_decision(pid, "S13"), "قرار التدقيق القانوني والحقوقي مسجل")
         miss = EV.interviews_without_consent(pid, "consent_publication")
         add(not miss, "موافقة النشر قائمة لكل مقابلة مستعملة" + (f" — ناقصة: {', '.join(miss[:5])}" if miss else ""))
+        g = EV.consent_gaps(pid)
+        add(not g["images_no_publication"], "موافقة النشر قائمة لكل صورة في المشروع" +
+            (f" — ناقصة: {', '.join(g['images_no_publication'][:5])}" if g["images_no_publication"] else ""))
         w = _count("permissions", pid, "AND withdrawn=1")
         add(w == 0, f"لا موافقات مسحوبة معلّقة — تُحجب المادة أو تُزال أولاً (المعلّق: {w})")
     elif st == "S14":

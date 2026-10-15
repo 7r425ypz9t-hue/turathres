@@ -59,7 +59,7 @@ def to_csv(user: dict, table: str, pid: str | None = None) -> str:
 
 
 def to_json(user: dict, pid: str) -> str:
-    out = {"project": db.get(user, "projects", pid), "exported_at": db.now()}
+    out = {"project": db.get(user, "projects", pid), "exported_at": db.now(), "consent_gaps": EV.consent_gaps(pid)}
     for t in EN.E:
         if t != "projects":
             out[t] = db.list_rows(user, t, pid, limit=100000)
@@ -143,6 +143,15 @@ def docx_dossier(user: dict, pid: str) -> bytes:
             para(f"{c['id']} — {c.get('topic')} ({c.get('status')})", 12, None, True)
             if c.get("analysis"):
                 para(c["analysis"], 12)
+    gaps = EV.consent_gaps(pid)
+    para("حالة الموافقات قبل النشر", 15, BLUE, True)
+    rows = [("مقابلات بلا موافقة نشر", gaps["interviews_no_publication"]), ("صور بلا موافقة نشر", gaps["images_no_publication"]),
+            ("أصول تحمل إحداثيات موقع (تُحجب قبل النشر)", gaps["assets_with_location"]), ("موافقات مسحوبة", gaps["withdrawn"])]
+    if not any(v for _, v in rows):
+        para("لا عائق موافقات أمام نشر ما في هذا الملف.", 12)
+    for label, ids in rows:
+        if ids:
+            para(f"{label}: {'، '.join(ids)} [لا يُنشر قبل استيفاء الموافقة]", 12)
     para("المراجع (APA 7)", 15, BLUE, True)
     for s in sorted(db.list_rows(user, "sources", pid), key=lambda x: (x.get("creator") or "")):
         if s.get("kind") != "oral":

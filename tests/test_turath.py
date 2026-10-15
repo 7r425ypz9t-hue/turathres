@@ -111,6 +111,23 @@ class TestVault(Base):
         r = vault.verify_all()
         self.assertIn(a1["id"], r["altered"])
 
+    def test_gps_in_photo_is_flagged_and_blocks_nothing_silently(self):
+        try:
+            from PIL import Image
+        except ImportError:
+            self.skipTest("Pillow غير مثبت")
+        import io
+        im = Image.new("RGB", (8, 8))
+        ex = Image.Exif()
+        ex[0x8825] = {1: "N", 2: (25.0, 20.0, 0.0)}
+        b = io.BytesIO()
+        im.save(b, "JPEG", exif=ex)
+        p = db.create(self.a, "projects", {"title": "صور"})
+        a = vault.ingest(self.a, "site.jpg", b.getvalue(), project_id=p["id"])
+        self.assertTrue(json.loads(a["technical"])["gps"])
+        self.assertEqual(vault.path_of(a).read_bytes(), b.getvalue())   # الأصل لم يُعدَّل
+        self.assertIn(a["id"], EV.consent_gaps(p["id"])["assets_with_location"])
+
     def test_backup_contains_manifest(self):
         vault.ingest(self.a, "doc.txt", b"original")
         import zipfile

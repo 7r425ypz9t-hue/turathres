@@ -51,6 +51,36 @@ def _probe(p: Path) -> dict:
         return {}
 
 
+def exif_gps(data: bytes) -> bool:
+    """هل في صورة JPEG إحداثيات GPS ضمن بيانات EXIF؟ (قراءة مباشرة بلا مكتبات)
+    الأصل لا يُعدَّل أبداً؛ وإنما يُعلَّم ليُحجب الموقع قبل أي نشر (الأخلاقيات وحماية المواقع الحساسة)."""
+    import struct
+    if not data.startswith(b"\xff\xd8"):
+        return False
+    i = 2
+    while i + 4 <= len(data) and data[i] == 0xFF:
+        marker, size = data[i + 1], struct.unpack(">H", data[i + 2:i + 4])[0]
+        if marker == 0xE1 and data[i + 4:i + 10] == b"Exif\x00\x00":
+            t = data[i + 10:i + 2 + size]
+            end = "<" if t[:2] == b"II" else ">"
+            try:
+                off = struct.unpack(end + "I", t[4:8])[0]
+                n = struct.unpack(end + "H", t[off:off + 2])[0]
+                for k in range(n):
+                    e = off + 2 + 12 * k
+                    tag = struct.unpack(end + "H", t[e:e + 2])[0]
+                    if tag == 0x8825:
+                        gps_off = struct.unpack(end + "I", t[e + 8:e + 12])[0]
+                        return struct.unpack(end + "H", t[gps_off:gps_off + 2])[0] > 0
+            except (struct.error, IndexError):
+                return False
+            return False
+        if marker in (0xDA, 0xD9):
+            break
+        i += 2 + size
+    return False
+
+
 def ingest(user: dict, filename: str, data: bytes, *, project_id: str | None = None, provenance: str = "",
            rights: str = "", depositor: str = "", access_level: str = "private") -> dict:
     """يحفظ الأصل في الخزنة بمساره المشتق من بصمته، للقراءة فقط، ويسجّله. تكرار الملف نفسه لا يُنشئ نسخة ثانية."""
@@ -77,7 +107,7 @@ def ingest(user: dict, filename: str, data: bytes, *, project_id: str | None = N
         row = {"id": aid, "sha256": h, "filename": Path(filename).name, "mime": mimetypes.guess_type(filename)[0] or "application/octet-stream",
                "size": len(data), "kind": kind_of(filename), "vault_path": rel.as_posix(), "project_id": project_id,
                "owner_id": user["id"], "access_level": access_level, "provenance": provenance, "rights": rights,
-               "depositor": depositor, "technical": json.dumps(_probe(dest), ensure_ascii=False), "created_at": ts,
+               "depositor": depositor, "technical": json.dumps(_probe(dest) | ({"gps": True} if exif_gps(data) else {}), ensure_ascii=False), "created_at": ts,
                "updated_at": ts, "last_verified": ts, "integrity": "ok"}
         db.conn().execute(f"INSERT INTO assets({','.join(row)}) VALUES({','.join('?' * len(row))})", list(row.values()))
         db.log(user["id"], "ingest", "assets", aid, None, {k: row[k] for k in ("sha256", "filename", "size", "kind")})
