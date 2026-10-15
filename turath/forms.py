@@ -5,6 +5,7 @@ import re
 from pathlib import Path
 
 from . import sanitize
+from . import fonts as FN
 
 ROOT = Path(__file__).parent.parent
 FORMS = ["04-oral-interview-form.md", "05-field-observation-form.md", "06-community-survey.md",
@@ -28,7 +29,7 @@ def md_to_docx(md: str, out: Path, title: str = "") -> Path:
     st = d.styles["Normal"]
     st.font.name = "Noto Naskh Arabic"
     st.font.size = Pt(12)
-    st.element.rPr.rFonts.set(qn("w:cs"), "Noto Naskh Arabic")
+    st.element.rPr.rFonts.set(qn("w:cs"), FN.FAMILY)   # العربي بخط الهوية، واللاتيني بـ Noto Naskh
 
     def rtl(par):
         par._p.get_or_add_pPr().append(OxmlElement("w:bidi"))
@@ -43,20 +44,7 @@ def md_to_docx(md: str, out: Path, title: str = "") -> Path:
             b = bold
             if piece.startswith("**") and piece.endswith("**"):
                 piece, b = piece[2:-2], True
-            r = par.add_run(piece)
-            r.font.size = Pt(size)
-            r.font.bold = b
-            rPr = r._r.get_or_add_rPr()
-            rPr.append(OxmlElement("w:rtl"))
-            szcs = OxmlElement("w:szCs")
-            szcs.set(qn("w:val"), str(int(size * 2)))
-            rPr.append(szcs)
-            if b:
-                rPr.append(OxmlElement("w:bCs"))
-            if piece.startswith(("(", "[")):
-                r.font.color.rgb = RGBColor.from_string(RED)
-            elif color:
-                r.font.color.rgb = RGBColor.from_string(color)
+            FN.add_runs(par, piece, size, b, RED if piece.startswith(("(", "[")) else color)
 
     def shade(cell, fill):
         tcPr = cell._tc.get_or_add_tcPr()

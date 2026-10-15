@@ -314,6 +314,25 @@ class TestDesktop(unittest.TestCase):
         self.assertIsNone(desktop.running(1))
 
 
+class TestFonts(Base):
+    FAKE = b"\x00\x01\x00\x00" + b"\x00" * 2000 + "adwa-assalaf".encode("utf-16-be") + b"\x00" * 100
+
+    def test_install_and_reject(self):
+        from turath import fonts
+        self.assertEqual(fonts.install("adwa-assalaf_B.ttf", self.FAKE), "bold")
+        self.assertEqual(fonts.install("adwa-assalaf.ttf", self.FAKE), "regular")
+        self.assertTrue(fonts.status()["regular"] and fonts.status()["bold"])
+        with self.assertRaises(ValueError):
+            fonts.install("x.ttf", b"PK\x03\x04" + b"\x00" * 3000)          # ليس خطاً
+        with self.assertRaises(ValueError):
+            fonts.install("other.ttf", b"\x00\x01\x00\x00" + b"\x00" * 3000)  # خط آخر
+
+    def test_font_files_never_in_repository(self):
+        import subprocess
+        out = subprocess.run(["git", "ls-files"], cwd=ROOT, capture_output=True, text=True).stdout.lower()
+        self.assertFalse([l for l in out.splitlines() if l.endswith((".ttf", ".otf", ".woff", ".woff2"))])
+
+
 class TestServer(Base):
     def setUp(self):
         super().setUp()
@@ -364,6 +383,16 @@ class TestServer(Base):
         self.assertIn("build", d)
         _, login = self.req("/api/login", {"username": "dir", "password": "password-3"})
         self.assertEqual(self.req("/api/shutdown", {}, token=login["token"], method="POST")[0], 403)
+
+    def test_font_route_serves_only_installed_identity_font(self):
+        from turath import fonts
+        with self.assertRaises(urllib.error.HTTPError):
+            urllib.request.urlopen(f"http://127.0.0.1:{self.port}/fonts/adwa-assalaf.ttf")
+        fonts.install("adwa-assalaf.ttf", TestFonts.FAKE)
+        with urllib.request.urlopen(f"http://127.0.0.1:{self.port}/fonts/adwa-assalaf.ttf") as r:
+            self.assertEqual(r.headers["Content-Type"], "font/ttf")
+        with self.assertRaises(urllib.error.HTTPError):
+            urllib.request.urlopen(f"http://127.0.0.1:{self.port}/fonts/..%2Fturath.db")
 
     def test_static_and_path_traversal(self):
         with urllib.request.urlopen(f"http://127.0.0.1:{self.port}/") as r:

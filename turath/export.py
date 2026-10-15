@@ -10,6 +10,7 @@ from . import entities as EN
 from . import evidence as EV
 from . import lifecycle as LC
 from . import sanitize
+from . import fonts as FN
 
 BLUE, GOLD, RED = "1F4E79", "B8860B", "FF0000"
 
@@ -93,7 +94,7 @@ def docx_dossier(user: dict, pid: str) -> bytes:
     st = d.styles["Normal"]
     st.font.name = "Noto Naskh Arabic"
     st.font.size = Pt(13)
-    st.element.rPr.rFonts.set(qn("w:cs"), "Noto Naskh Arabic")
+    st.element.rPr.rFonts.set(qn("w:cs"), FN.FAMILY)   # العربي بخط الهوية، واللاتيني بـ Noto Naskh
 
     def para(text, size=13, color=None, bold=False, align=WD_ALIGN_PARAGRAPH.RIGHT):
         """فقرة من اليمين؛ والأقواس وما بينها بالأحمر (اصطلاح «باحث» في كل مستند)."""
@@ -105,20 +106,7 @@ def docx_dossier(user: dict, pid: str) -> bytes:
         for i, piece in enumerate(re.split(r"(\([^()]*\)|\[[^\[\]]*\])", text)):
             if not piece:
                 continue
-            r = par.add_run(piece)
-            r.font.size = Pt(size)
-            r.font.bold = bold
-            rPr = r._r.get_or_add_rPr()
-            rPr.append(OxmlElement("w:rtl"))
-            szcs = OxmlElement("w:szCs")
-            szcs.set(qn("w:val"), str(int(size * 2)))
-            rPr.append(szcs)
-            if bold:
-                rPr.append(OxmlElement("w:bCs"))
-            if i % 2 == 1:
-                r.font.color.rgb = RGBColor.from_string(RED)
-            elif color:
-                r.font.color.rgb = RGBColor.from_string(color)
+            FN.add_runs(par, piece, size, bold, RED if i % 2 == 1 else color)
         return par
 
     para("إدارة الدراسات والبحوث التراثية الإماراتية", 12, GOLD, True, WD_ALIGN_PARAGRAPH.CENTER)

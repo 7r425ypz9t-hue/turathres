@@ -108,6 +108,23 @@ def cmd_icon(a):
         print("لا شيء لإزالته." if a.remove else "تعذّر إنشاء الأيقونة.")
 
 
+def cmd_fonts(a):
+    _init(a.home)
+    from . import fonts
+    if a.action == "install":
+        if not a.files:
+            sys.exit("حدّدوا ملفّي الخط: turath fonts install adwa-assalaf.ttf adwa-assalaf_B.ttf")
+        from pathlib import Path
+        for f in a.files:
+            w = fonts.install(Path(f).name, Path(f).read_bytes())
+            print(f"ثُبّت «أضواء السلف» ({'عريض' if w == 'bold' else 'عادي'}): {f}")
+    elif a.action == "remove":
+        fonts.remove()
+        print("أُزيل الخط من مجلد البيانات.")
+    st = fonts.status()
+    print(f"العادي: {'مثبت' if st['regular'] else 'غير مثبت'} · العريض: {'مثبت' if st['bold'] else 'غير مثبت'} · {st['folder']}")
+
+
 def cmd_pilot(a):
     _init(a.home)
     from . import auth, pilot, db
@@ -167,6 +184,10 @@ def main(argv=None):
     s = sp.add_parser("install-icon", help="أيقونة «تراث» على سطح المكتب وفي قائمة البرامج")
     s.add_argument("--remove", action="store_true")
     s.set_defaults(fn=cmd_icon)
+    s = sp.add_parser("fonts", help="خط الهوية «أضواء السلف»: install · status · remove")
+    s.add_argument("action", choices=["install", "status", "remove"])
+    s.add_argument("files", nargs="*")
+    s.set_defaults(fn=cmd_fonts)
     s = sp.add_parser("pilot", help="استيراد النموذج التطبيقي التجريبي")
     s.add_argument("--user")
     s.set_defaults(fn=cmd_pilot)

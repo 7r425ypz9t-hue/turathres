@@ -22,6 +22,7 @@ from . import auth
 from . import db
 from . import entities as EN
 from . import evidence as EV
+from . import fonts as FN
 from . import export as EX
 from . import kpis
 from . import lifecycle as LC
@@ -188,6 +189,13 @@ class Handler(BaseHTTPRequestHandler):
             self._json({"error": f"خطأ داخلي: {e}"}, 500)
 
     def _static(self, path: str):
+        if path.startswith("/fonts/"):
+            # خط الهوية يُقدَّم من مجلد البيانات على جهاز صاحب الإدارة (لا يُوزَّع مع البرنامج)
+            name = path.rsplit("/", 1)[-1]
+            f = FN.folder() / name
+            if name not in FN.FILES.values() or not f.is_file():
+                return self._send(404, b"", "font/ttf")
+            return self._send(200, f.read_bytes(), "font/ttf", {"Cache-Control": "max-age=86400"})
         if path in ("/", ""):
             path = "/index.html"
         p = (STATIC / path.lstrip("/")).resolve()
@@ -231,6 +239,16 @@ class Handler(BaseHTTPRequestHandler):
         if head == "history":
             db.get(user, seg[1], seg[2])
             return self._json(db.history(seg[1], seg[2]))
+        if head == "fonts":
+            if method == "POST":
+                if user["role"] not in ("admin", "director"):
+                    raise db.Denied("تثبيت الخط للمدير")
+                n = int(self.headers.get("Content-Length") or 0)
+                if n <= 0 or n > FN.MAX:
+                    raise ApiError("حجم ملف الخط غير مقبول")
+                w = FN.install(unquote(self.headers.get("X-Filename") or "font.ttf"), self.rfile.read(n))
+                return self._json({"installed": w} | FN.status())
+            return self._json(FN.status())
         if head == "upload" and method == "POST":
             n = int(self.headers.get("Content-Length") or 0)
             if n <= 0 or n > MAX_UPLOAD:

@@ -835,11 +835,31 @@ async function settings(main) {
     <label>اسم المستخدم<input name="username" required></label><label>الاسم الظاهر<input name="display_name"></label><label>كلمة المرور<input name="password" type="password" minlength="8" required></label>
     <label>الصفة<select name="role">${Object.entries(S.info.roles).map(([k, l]) => `<option value="${k}" ${k === "researcher" ? "selected" : ""}>${esc(l)}</option>`).join("")}</select></label>
     <div><button class="btn">${ic("check")} إنشاء</button></div></form></div>` : ""}
+  ${sec("خط الهوية «أضواء السلف»", "feather", C.gold)}
+  <div class="card" id="fontcard"><p class="muted small">جارٍ الفحص…</p></div>
   ${sec("صور الواجهة ومصادرها", "camera", C.sky)}<div id="credits" class="table-wrap"></div>
   <p class="tiny muted">صور الواجهة للزينة لا دليلاً تاريخياً. والمولَّد منها موسوم «إعادة بناء تصورية» حيثما ظهر.</p>
   ${sec("الحماية والاستمرارية", "shield", C.palm)}<div class="row"><button class="btn ghost" data-go="vault">${ic("shield")} فحص السلامة والنسخ الاحتياطي</button>
     <button class="btn ghost" id="tour">${ic("compass")} دليل البدء</button></div>`;
   $("#tour").onclick = () => showTour(0);
+  const loadFont = async () => {
+    const f = await api("fonts");
+    const ok = f.regular && f.bold;
+    $("#fontcard").innerHTML = `<div class="spread"><div>
+      <h3 style="margin:0">${ok ? ic("check") + " الخط مثبت" : ic("alert") + " الخط غير مثبت بعد"}</h3>
+      <p class="small" style="margin:.4em 0">العادي: ${f.regular ? badge("مثبت", C.palm) : badge("غير مثبت", C.crimson)} · العريض: ${f.bold ? badge("مثبت", C.palm) : badge("غير مثبت", C.crimson)}</p>
+      <p class="tiny muted">يُحفظ الملفان في مجلد البيانات على هذا الجهاز (<span dir="ltr">${esc(f.folder)}</span>)، ولا يُرفعان إلى المستودع لأن الخط مرخَّص.
+      وبدونه تعمل الواجهة بخط Noto Naskh Arabic. ولملفات Word ثبّتوا الخط في النظام أيضاً (انقر الملف نقراً مزدوجاً ← تثبيت).</p>
+      <p style="font-family:'Adwa Assalaf';font-size:1.5rem;margin:.2em 0">إدارة الدراسات والبحوث التراثية الإماراتية <b>· تراث</b></p></div>
+      ${canAdmin ? `<label class="btn gold" style="cursor:pointer">${ic("upload")} اختيار ملفّي الخط<input type="file" id="fontfiles" accept=".ttf,.otf" multiple hidden></label>` : ""}</div>`;
+    if ($("#fontfiles")) $("#fontfiles").onchange = async (e) => {
+      for (const file of e.target.files) {
+        await run(() => api("fonts", { method: "POST", raw: true, body: file, headers: { "X-Filename": encodeURIComponent(file.name) } }), "ثُبّت " + file.name);
+      }
+      location.reload();
+    };
+  };
+  loadFont().catch(() => {});
   fetch("img/photos/credits.json").then((r) => r.json()).then((L) => {
     $("#credits").innerHTML = `<table><thead><tr><th>الصورة</th><th>موضعها</th><th>النوع</th><th>الملف الأصلي</th><th>الحقوق</th></tr></thead><tbody>${L.map((c) => `<tr>
       <td><img src="img/photos/${esc(c.file)}" alt="" style="width:96px;height:60px;object-fit:cover;border-radius:8px"></td><td>${esc(c.used_for)}</td>

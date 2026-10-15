@@ -1,4 +1,12 @@
 /* «تراث» — الهوية البصرية: أزرق عميق وذهبي، وألوان البيئة الإماراتية مساندة */
+/* خط الهوية «أضواء السلف»: من الخط المثبت على الجهاز أولاً، ثم من مجلد البيانات (/fonts)؛ والخط مرخَّص فلا يُرفع إلى المستودع.
+   لا يحوي حروفاً لاتينية، فيُحصر في العربية ويسقط اللاتيني والأرقام اللاتينية إلى Noto Naskh Arabic. وحروفه أصغر ارتفاعاً، فيُكبَّر 122%. */
+@font-face{font-family:"Adwa Assalaf";font-weight:400;font-display:swap;size-adjust:122%;
+  src:local("adwa-assalaf"),local("Adwa Assalaf"),url(/fonts/adwa-assalaf.ttf) format("truetype");
+  unicode-range:U+0600-06FF,U+0750-077F,U+08A0-08FF,U+FB50-FDFF,U+FE70-FEFF,U+200C-200F}
+@font-face{font-family:"Adwa Assalaf";font-weight:700;font-display:swap;size-adjust:122%;
+  src:local("adwa-assalaf Bold"),local("adwa-assalaf-Bold"),url(/fonts/adwa-assalaf-bold.ttf) format("truetype");
+  unicode-range:U+0600-06FF,U+0750-077F,U+08A0-08FF,U+FB50-FDFF,U+FE70-FEFF,U+200C-200F}
 :root{
   --blue:#1F4E79;--blue-2:#2A6AA3;--gold:#B8860B;--gold-2:#E0B243;--night:#12263F;--teal:#0E7C86;--sand:#D9B26F;
   --palm:#3E7C3A;--clay:#A0522D;--sky:#5BA4CF;--pearl:#F7F3EA;--crimson:#8B1E3F;--plum:#5B3A7A;--brown:#6B4E2E;
@@ -12,7 +20,7 @@
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html,body{margin:0;height:100%}
-body{background:var(--bg);color:var(--ink);font-family:"Noto Naskh Arabic","Amiri","Traditional Arabic","Segoe UI",Tahoma,serif;font-size:16px;line-height:1.75;
+body{background:var(--bg);color:var(--ink);font-family:"Adwa Assalaf","Noto Naskh Arabic","Amiri","Traditional Arabic","Segoe UI",Tahoma,serif;font-size:16px;line-height:1.75;
   background-image:linear-gradient(color-mix(in srgb,var(--bg) 88%,transparent),color-mix(in srgb,var(--bg) 88%,transparent)),url(img/pattern-arabesque.svg);
   background-size:auto,120px;background-attachment:fixed}
 :root[data-theme="dark"] body{background-blend-mode:soft-light}
